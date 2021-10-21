@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "JVIDA-PCRFT-View.h"
-//chamando struct
-ordem ordem1;
+
 
 //funções
 void perguntarordem()//pergunta a ordem que o usuário quer
@@ -11,14 +10,14 @@ void perguntarordem()//pergunta a ordem que o usuário quer
 void mostra_matriz() { //mostrar  matriz(mundo)
 
     printf("\t");
-    for (int x = 0; x < ordem1.ordem; x++)
+    for (int x = 0; x < mundo.ordem; x++)
         printf("%d   ", x);
     printf("\n");
 
-    for (int i = 0; i < ordem1.ordem; i++) {
+    for (int i = 0; i < mundo.ordem; i++) {
         printf("%d\t", i);
-        for (int j = 0; j < ordem1.ordem; j++)
-            printf("%c   ", ordem1.matriz[i][j]);
+        for (int j = 0; j < mundo.ordem; j++)
+            printf("%c   ", mundo.matriz[i][j]);
         printf("\n");
     }
 }
@@ -29,11 +28,13 @@ void submenu()//mostra sub-menu para o usuario
     printf("\nPor favor, escolha uma opcao: \n");
     printf("1 - Selecionar uma coodernada\n");
     printf("2 - Limpar mundo matricial\n");
+    printf("3 - Lista\n");
+    printf("4 - obiter numero de celulas vivas em volta\n");
     printf("0 - Sair do programa\n");
 }
 void cordenadas()//perguntar as cordenadas para escolher a celulas vivas
 {
-    printf("Coodernadas (X, Y): ");
+    printf("Coodernadas (linha coluna): ");
 }
 void mensagemdeerro()//caso tenha algo de errado a informar ao usuario
 {
@@ -61,4 +62,23 @@ void interface(){ //mostrar pagina inicial do jogo
            "|         \\|     /   |                                                          |\n"
            "|          `-----`---'                                                          |\n"
            "|_______________________________________________________________________________|\n");
+}
+void listaviva() {
+    printf("\t    VIVOS\n ");
+    printf("\t______________\n");
+    printf("\tlinha | coluna\n");
+    for (int i = 0; i < tvivos.cont; i++) {
+
+        if (tvivos.cont > 0)
+            printf(" \t    %d | %d\n", tvivos.celula[i].lin, tvivos.celula[i].col);
+    }
+    printf("\n\n");
+    printf("\t    MORTOS\n ");
+    printf("\t______________\n");
+    printf("\tlinha | coluna\n");
+    for (int i = 0; i < tmortos.cont; i++) {
+
+        if (tmortos.cont > 0)
+            printf(" \t\n    %d | %d\n", tmortos.celula[i].lin, tmortos.celula[i].col);
+    }
 }

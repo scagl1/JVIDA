@@ -1,8 +1,6 @@
 #include <locale.h>
-#include "JVIDA-PCRFT-View.h"
-#include "JVIDA-PCRFT-Controller.h"
 
-ordem ordem1;
+#include "JVIDA-PCRFT-Controller.h"
 
 int main() {
 
