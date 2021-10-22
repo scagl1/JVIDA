@@ -3,7 +3,7 @@
 
 #include "JVIDA-PCRFT-Model.h"
 
-#define max_ordem 60
+#define max_ordem 30
 
 //Variaveis globais
 typedef struct{

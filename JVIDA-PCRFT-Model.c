@@ -9,7 +9,11 @@ void preenche_matriz() { // colocando toda a matriz que vai ser o mundo como cel
 
     for (int i = 0; i < mundo.ordem; i++)
         for (int j = 0; j < mundo.ordem; j++)
+        {
             mundo.matriz[i][j] = '.';
+        }
+        tvivos.cont = 0;
+        tmortos.cont = 0;
 }
 void recebe_ordem() {//pegar o tamanho da matriz(mundoa) que o usuário quer
 
@@ -22,27 +26,25 @@ void recebe_ordem() {//pegar o tamanho da matriz(mundoa) que o usuário quer
 }
 void celulasvolta()
 {
-    int testando=0;
-    for(int linha=0;linha<tvivos.cont;linha++)
+    int vizinhos = 0;
+
+    for(int coordenada=0;coordenada<tvivos.cont;coordenada++)
     {
-       for(int testes;testes<tvivos.cont;testes++)
+       for(int testes=0;testes<tvivos.cont;testes++)
        {
-            if ((tvivos.celula[testes].lin == tvivos.celula[linha].lin) && (tvivos.celula[testes].col == tvivos.celula[linha].col+1 || tvivos.celula[testes].col == tvivos.celula[linha].col-1 ))
+            if ((tvivos.celula[testes].lin == tvivos.celula[coordenada].lin) && (tvivos.celula[testes].col == tvivos.celula[coordenada].col+1 || tvivos.celula[testes].col == tvivos.celula[coordenada].col-1 ))
             {
-                testando++;
-                printf("11\n");
-            }else if ((tvivos.celula[testes].col == tvivos.celula[linha].col) && (tvivos.celula[testes].lin == tvivos.celula[linha].lin+1 || tvivos.celula[testes].lin == tvivos.celula[linha].lin-1 ))
+                vizinhos++;
+            }else if ((tvivos.celula[testes].col == tvivos.celula[coordenada].col) && (tvivos.celula[testes].lin == tvivos.celula[coordenada].lin+1 || tvivos.celula[testes].lin == tvivos.celula[coordenada].lin-1 ))
             {
-                testando++;
-                printf("22\n");
-            }else if (((tvivos.celula[testes].lin == tvivos.celula[linha].lin+1) || (tvivos.celula[testes].lin == tvivos.celula[linha].lin-1) ) && (tvivos.celula[testes].col == tvivos.celula[linha].col-1 || tvivos.celula[testes].col == tvivos.celula[linha].col+1 ))
+                vizinhos++;
+            }else if (((tvivos.celula[testes].lin == tvivos.celula[coordenada].lin+1) || (tvivos.celula[testes].lin == tvivos.celula[coordenada].lin-1) ) && (tvivos.celula[testes].col == tvivos.celula[coordenada].col-1 || tvivos.celula[testes].col == tvivos.celula[coordenada].col+1 ))
             {
-                printf("33\n");
-                testando++;
+                vizinhos++;
             }
        }
-        printf("celula %d: %d ",linha,testando );
-
+        nVizinhos(coordenada,vizinhos);
+        vizinhos = 0;
     }
 
 
