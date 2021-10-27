@@ -93,19 +93,20 @@ void listas()
     printf("\t    VIVOS\n ");
     printf("\t______________\n");
     printf("\tlinha | coluna\n");
-    for (int i = 0; i < tvivos.cont; i++) {
+    for (int i = 1; i <=tvivos.cont; i++) {
 
-        if (tvivos.cont > 0)
+
             printf(" \t    %d | %d\n", tvivos.celula[i].lin, tvivos.celula[i].col);
     }
     printf("\n\n");
     printf("\t    MORTOS\n ");
     printf("\t______________\n");
     printf("\tlinha | coluna\n");
-    for (int i = 0; i < tmortos.cont; i++) {
+    for (int i = 1; i <=tmortos.cont; i++)
+    {
 
-        if (tmortos.cont > 0)
-            printf(" \t\n    %d | %d\n", tmortos.celula[i].lin, tmortos.celula[i].col);
+        printf(" \t    %d | %d\n", tmortos.celula[i].lin, tmortos.celula[i].col);
+
     }
 }
 
