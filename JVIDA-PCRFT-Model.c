@@ -51,69 +51,79 @@ void conta_vizinhos()
 {
     mundo.matriz[tvivos.celula[tvivos.cont].lin][tvivos.celula[tvivos.cont].col] = '0';
 
+    //Adiciona todos os vizinhos como mortos
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin+1;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin+1;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col;
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin-1;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin-1;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col;
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col+1;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col+1;
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col-1;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col-1;
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin+1;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col+1;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin+1;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col+1;
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin-1;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col+1;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin-1;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col+1;
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin+1;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col-1;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin+1;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col-1;
     tmortos.cont++;
-    tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin-1;
-    tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col-1;
+    tmortos.celula[tmortos.cont].lin = tvivos.celula[tvivos.cont].lin-1;
+    tmortos.celula[tmortos.cont].col = tvivos.celula[tvivos.cont].col-1;
 
+    //Limpando a lista de mortos das duplicatas, e invalidas, das celulas
     for (int k=1; k <= tmortos.cont; k++)
     {
         for (int j = 1; j<=tmortos.cont; j++)
         {
+            //Limpando a lista de mortos das duplicatas das celulas
             if ((k!=j) && (((tmortos.celula[k].lin == tmortos.celula[j].lin) && (tmortos.celula[k].col == tmortos.celula[j].col))))
             {
+                //Sobrepondo elementos errados da lista com os posteriores
                 for(int z = j + 1; z<=tmortos.cont; z++)
                 {
                     tmortos.celula[z - 1].lin = tmortos.celula[z].lin;
                     tmortos.celula[z - 1].col = tmortos.celula[z].col;
                 }
+                //Diminuindo o tamanho da lista
                 tmortos.cont--;
             }
+            //Limpando a lista de mortos das e invalidas das celulas
             if ((((tmortos.celula[j].lin <= -1) || (tmortos.celula[j].col <= -1)) || ((tmortos.celula[j].lin > mundo.ordem-1) || (tmortos.celula[j].col > mundo.ordem - 1))))
             {
+                //Sobrepondo elementos errados da lista com os posteriores
                 for(int z = j + 1; z <= tmortos.cont; z++)
                 {
                     tmortos.celula[z - 1].lin = tmortos.celula[z].lin;
                     tmortos.celula[z - 1].col = tmortos.celula[z].col;
                 }
+                //Diminuindo o tamanho da lista
                 tmortos.cont--;
             }
         }
     }
+
+    //Tirando lista de mortos e removendo celulas vivas
     for(int k=1; k <= tmortos.cont; k++)
     {
         for (int j = 1; j <= tvivos.cont; j++)
-        {
+        { //Caso uma celula na lista de mortos esteja viva, ela entra na condicao
             if (((tmortos.celula[k].lin == tvivos.celula[j].lin) && (tmortos.celula[k].col == tvivos.celula[j].col)))
             {
                 if (tmortos.cont != j)
-                    for (int z = k + 1; z <= tmortos.cont; z++)
-                    {
-                        printa_z(z);
+                { //Sobrepondo elementos errados da lista com os posteriores
+                    for (int z = k + 1; z <= tmortos.cont; z++) {
                         tmortos.celula[z - 1].lin = tmortos.celula[z].lin;
                         tmortos.celula[z - 1].col = tmortos.celula[z].col;
-                        printa_z(z);
                     }
+                }
+                //Diminuindo o tamanho da lista
                 tmortos.cont--;
             }
         }

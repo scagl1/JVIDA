@@ -31,15 +31,15 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
                 break;
 
             case 2:
-                preenche_matriz();//marcar cada termo das matrix com celulas mortas
+                preenche_matriz();//Marcar cada termo das matrix com celulas mortas
                 break;
             case 3:
-                if (tvivos.cont != 0){
+                if (tvivos.cont != 0){ //Impedir o usuario de selecionar a lista, caso o numero de celulas vivas seja igual a 0 (matriz vazia)
                     listas();
                 }
                 break;
             case 4:
-                if (tvivos.cont != 0) {
+                if (tvivos.cont != 0) { //Impedir o usuario de ver o numero de celulas MORTAS e VIVAS vizinhas, caso o numero de celulas vivas seja igual a 0 (matriz vazia)
                     celulasvolta();
                 }
                 break;
@@ -47,5 +47,5 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
                 break;
         }
 
-    } while (opt != 0);//caso a opção 0 for selecionada sai do programa
+    } while (opt != 0);//Caso a opção 0 for selecionada sai do programa
 }
