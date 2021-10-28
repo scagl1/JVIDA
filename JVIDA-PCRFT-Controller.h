@@ -4,7 +4,6 @@
 #include "JVIDA-PCRFT-View.h"
 #include "JVIDA-PCRFT-Model.h"
 
-
 //Funções
 void menu();// inicio do sistema com menu inicial e logica do programa
 

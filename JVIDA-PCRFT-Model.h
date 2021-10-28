@@ -28,4 +28,5 @@ tlista tvivos ,tmortos;
 void preenche_matriz();// colocando toda a matriz que vai ser o mundo como celulas mortas
 void recebe_ordem();//pegar o tamanho da matriz(mundoa) que o usuário quer
 void celulasvolta();
+void conta_vizinhos();
 #endif //JOGO_DA_VIDA_JVIDA_PCRFT_MODEL_H

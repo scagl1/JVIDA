@@ -5,43 +5,43 @@
 //funções
 void perguntarordem()//pergunta a ordem que o usuário quer
 {
-    printf("\nPor favor, insira a ordem da matriz (De 1 a %d): ", max_ordem);
+    printf("\nPor favor, insira a ordem da matriz (De 2 a %d): ", max_ordem);
 }
 void mostra_matriz() //mostrar matriz (mundo)
 {
-        printf("Linha (Numeros da esquerda), Coluna (Numeros de cima)\n\n");
+    printf("Linha (Numeros da esquerda), Coluna (Numeros de cima)\n\n");
 
-        if (mundo.ordem <= 10) { //matriz de ordem MENOR que 10 (em 10, teremos coodenadas entre 0-9)
-            printf("   ");
-            for (int i = 0; i < mundo.ordem; i++)
-                printf("%d  ", i);
+    if (mundo.ordem <= 10) { //matriz de ordem MENOR que 10 (em 10, teremos coodenadas entre 0-9)
+        printf("   ");
+        for (int i = 0; i < mundo.ordem; i++)
+            printf("%d  ", i);
+        printf("\n");
+
+        for (int i = 0; i < mundo.ordem; i++) {
+            printf("%d  ", i);
+            for (int j = 0; j < mundo.ordem; j++)
+                printf("%c  ", mundo.matriz[i][j]);
             printf("\n");
-
-            for (int i = 0; i < mundo.ordem; i++) {
+        }
+    } else { //matriz de ordem MAIOR que 10 (visa-se melhor espacamento)
+        printf("    ");
+        for (int i = 0; i < mundo.ordem; i++)
+            if (i >= 10) {
+                printf("%d ", i);
+            } else {
                 printf("%d  ", i);
-                for (int j = 0; j < mundo.ordem; j++)
-                    printf("%c  ", mundo.matriz[i][j]);
-                printf("\n");
             }
-        } else { //matriz de ordem MAIOR que 10 (visa-se melhor espacamento)
-            printf("    ");
-            for (int i = 0; i < mundo.ordem; i++)
-                if (i >= 10) {
-                    printf("%d ", i);
-                } else {
-                    printf("%d  ", i);
-                }
 
+        printf("\n");
+
+        for (int i = 0; i < mundo.ordem; i++) {
+            if (i > 9)
+                printf("%d  ", i);
+            else
+                printf("%d   ", i);
+            for (int j = 0; j < mundo.ordem; j++)
+                printf("%c  ", mundo.matriz[i][j]);
             printf("\n");
-
-            for (int i = 0; i < mundo.ordem; i++) {
-                if (i > 9)
-                    printf("%d  ", i);
-                else
-                    printf("%d   ", i);
-                for (int j = 0; j < mundo.ordem; j++)
-                    printf("%c  ", mundo.matriz[i][j]);
-                printf("\n");
         }
     }
 }
@@ -49,16 +49,16 @@ void submenu()//mostra sub-menu para o usuario
 {
     printf("\nLegenda --> Vivo = 0  Morto = .\n\n");
     mostra_matriz();
-    printf("\nPor favor, escolha uma opcao: \n");
-    printf("1 - Selecionar uma coodernada\n");
-    printf("2 - Limpar mundo matricial\n");
-    printf("3 - Lista\n");
-    printf("4 - obiter numero de celulas vivas em volta\n");
-    printf("0 - Sair do programa\n");
+    printf("\nPor favor, escolha uma opcao: \n"
+           "1 - Selecionar uma coodernada\n"
+           "2 - Limpar mundo matricial\n"
+           "3 - Listar celulas vivas, e mortas vizinhas\n"
+           "4 - Obter numero de celulas vivas em volta\n"
+           "0 - Sair do programa\n");
 }
 void cordenadas()//perguntar as cordenadas para escolher a celulas vivas
 {
-    printf("Coodernadas (LINHA E COLUNA Ex:1 1): ");
+    printf("Coodernadas - LINHA E COLUNA (Ex: 1 1): ");
 }
 void mensagemdeerro()//caso tenha algo de errado a informar ao usuario
 {
@@ -92,16 +92,16 @@ void listas()
 {
     printf("\t    VIVOS\n ");
     printf("\t______________\n");
-    printf("\tlinha | coluna\n");
+    printf("\tLinha | Coluna\n");
     for (int i = 1; i <=tvivos.cont; i++) {
 
 
-            printf(" \t    %d | %d\n", tvivos.celula[i].lin, tvivos.celula[i].col);
+        printf(" \t    %d | %d\n", tvivos.celula[i].lin, tvivos.celula[i].col);
     }
     printf("\n\n");
     printf("\t    MORTOS\n ");
     printf("\t______________\n");
-    printf("\tlinha | coluna\n");
+    printf("\tLinha | Coluna\n");
     for (int i = 1; i <=tmortos.cont; i++)
     {
 
@@ -112,5 +112,15 @@ void listas()
 
 void  nVizinhos(int coordenada,int vizinhos)
 {
-    printf("Celula %d que esta na coordenada [%d][%d] possui %d vizinhos\n",coordenada+1,tvivos.celula[coordenada].lin,tvivos.celula[coordenada].col,vizinhos );
+    printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinhos.\n",coordenada+1,tvivos.celula[coordenada].lin,tvivos.celula[coordenada].col,vizinhos );
+}
+
+void printa_z(int z)
+{
+    printf(" \t\n    %d | %d\n", tmortos.celula[z-1].lin, tmortos.celula[z].col);
+}
+
+void printa_zmenos1(int z)
+{
+    printf(" \t\n    %d | %d\n", tmortos.celula[z-1].lin, tmortos.celula[z-1].col);
 }
