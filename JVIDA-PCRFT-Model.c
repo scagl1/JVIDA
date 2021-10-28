@@ -3,7 +3,6 @@
 #include "JVIDA-PCRFT-Model.h"
 #include "JVIDA-PCRFT-View.h"
 
-
 //funções
 void preenche_matriz() { // colocando toda a matriz que vai ser o mundo como celulas mortas
 
@@ -28,17 +27,17 @@ void celulasvolta()
 {
     int vizinhos = 0;
 
-    for(int coordenada=0;coordenada<tvivos.cont;coordenada++)
+    for(int coordenada = 0;coordenada<tvivos.cont;coordenada++)
     {
-        for(int testes=0;testes<tvivos.cont;testes++)
+        for(int testes = 0; testes < tvivos.cont; testes++)
         {
             if ((tvivos.celula[testes].lin == tvivos.celula[coordenada].lin) && (tvivos.celula[testes].col == tvivos.celula[coordenada].col+1 || tvivos.celula[testes].col == tvivos.celula[coordenada].col-1 ))
             {
                 vizinhos++;
-            }else if ((tvivos.celula[testes].col == tvivos.celula[coordenada].col) && (tvivos.celula[testes].lin == tvivos.celula[coordenada].lin+1 || tvivos.celula[testes].lin == tvivos.celula[coordenada].lin-1 ))
+            } else if ((tvivos.celula[testes].col == tvivos.celula[coordenada].col) && (tvivos.celula[testes].lin == tvivos.celula[coordenada].lin+1 || tvivos.celula[testes].lin == tvivos.celula[coordenada].lin-1 ))
             {
                 vizinhos++;
-            }else if (((tvivos.celula[testes].lin == tvivos.celula[coordenada].lin+1) || (tvivos.celula[testes].lin == tvivos.celula[coordenada].lin-1) ) && (tvivos.celula[testes].col == tvivos.celula[coordenada].col-1 || tvivos.celula[testes].col == tvivos.celula[coordenada].col+1 ))
+            } else if (((tvivos.celula[testes].lin == tvivos.celula[coordenada].lin+1) || (tvivos.celula[testes].lin == tvivos.celula[coordenada].lin-1) ) && (tvivos.celula[testes].col == tvivos.celula[coordenada].col-1 || tvivos.celula[testes].col == tvivos.celula[coordenada].col+1 ))
             {
                 vizinhos++;
             }
@@ -77,33 +76,38 @@ void conta_vizinhos()
     tmortos.celula[tmortos.cont].lin=tvivos.celula[tvivos.cont].lin-1;
     tmortos.celula[tmortos.cont].col=tvivos.celula[tvivos.cont].col-1;
 
-    for(int k=1;k<=tmortos.cont;k++)
+    for (int k=1; k <= tmortos.cont; k++)
     {
-        for(int j=1;j<=tmortos.cont;j++)
+        for (int j = 1; j<=tmortos.cont; j++)
         {
-            if( (k!=j) && (((tmortos.celula[k].lin == tmortos.celula[j].lin) && (tmortos.celula[k].col == tmortos.celula[j].col)) || ((tmortos.celula[j].lin<0) ||(tmortos.celula[j].lin>mundo.ordem-1) ||  (tmortos.celula[j].col<0) ||(tmortos.celula[j].col>mundo.ordem-1))))
+            if ((k!=j) && (((tmortos.celula[k].lin == tmortos.celula[j].lin) && (tmortos.celula[k].col == tmortos.celula[j].col))))
             {
-
-                for(int z=j+1;z<=tmortos.cont;z++)
+                for(int z = j + 1; z<=tmortos.cont; z++)
                 {
-                    printa_zmenos1(z);
                     tmortos.celula[z - 1].lin = tmortos.celula[z].lin;
                     tmortos.celula[z - 1].col = tmortos.celula[z].col;
-                    printa_zmenos1(z);
-
+                }
+                tmortos.cont--;
+            }
+            if ((((tmortos.celula[j].lin <= -1) || (tmortos.celula[j].col <= -1)) || ((tmortos.celula[j].lin > mundo.ordem-1) || (tmortos.celula[j].col > mundo.ordem - 1))))
+            {
+                for(int z = j + 1; z <= tmortos.cont; z++)
+                {
+                    tmortos.celula[z - 1].lin = tmortos.celula[z].lin;
+                    tmortos.celula[z - 1].col = tmortos.celula[z].col;
                 }
                 tmortos.cont--;
             }
         }
     }
-    for(int k=1;k<=tmortos.cont;k++)
+    for(int k=1; k <= tmortos.cont; k++)
     {
-        for (int j =1 ; j <= tvivos.cont; j++)
+        for (int j = 1; j <= tvivos.cont; j++)
         {
             if (((tmortos.celula[k].lin == tvivos.celula[j].lin) && (tmortos.celula[k].col == tvivos.celula[j].col)))
             {
-                if (tmortos.cont!=j)
-                    for (int z = k+1; z <= tmortos.cont; z++)
+                if (tmortos.cont != j)
+                    for (int z = k + 1; z <= tmortos.cont; z++)
                     {
                         printa_z(z);
                         tmortos.celula[z - 1].lin = tmortos.celula[z].lin;
@@ -115,7 +119,3 @@ void conta_vizinhos()
         }
     }
 }
-
-
-
-

@@ -34,10 +34,14 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
                 preenche_matriz();//marcar cada termo das matrix com celulas mortas
                 break;
             case 3:
-                listas();
+                if (tvivos.cont != 0){
+                    listas();
+                }
                 break;
             case 4:
-                celulasvolta();
+                if (tvivos.cont != 0) {
+                    celulasvolta();
+                }
                 break;
             default:
                 break;

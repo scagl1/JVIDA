@@ -12,6 +12,4 @@ void mensagemdeerro();//casa tenha algo de errado informar ao usuario
 void interface();//mostrar pagina inicial do jogo
 void listas();//Listas de celulas vivas e mortas
 void nVizinhos(int,int);//print de quantos vizinhos a celula na cordenada x e y possui
-void printa_z(int z);
-void printa_zmenos1(int z);
 #endif //JOGO_DA_VIDA_JVIDA_PCRFT_VIEW_H

@@ -112,15 +112,6 @@ void listas()
 
 void  nVizinhos(int coordenada,int vizinhos)
 {
-    printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinhos.\n",coordenada+1,tvivos.celula[coordenada].lin,tvivos.celula[coordenada].col,vizinhos );
-}
-
-void printa_z(int z)
-{
-    printf(" \t\n    %d | %d\n", tmortos.celula[z-1].lin, tmortos.celula[z].col);
-}
-
-void printa_zmenos1(int z)
-{
-    printf(" \t\n    %d | %d\n", tmortos.celula[z-1].lin, tmortos.celula[z-1].col);
+    printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n",coordenada+1,tvivos.celula[coordenada].lin,tvivos.celula[coordenada].col,vizinhos );
+    printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) MORTOS.\n",coordenada+1,tvivos.celula[coordenada].lin,tvivos.celula[coordenada].col,(8-vizinhos));
 }
