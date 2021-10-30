@@ -5,15 +5,25 @@
 
 
 void menu() { // inicio do sistema com menu inicial e logica do programa
+    //chamando struct
+    matriz mundo,*mundoPtr;
+    mundoPtr= &mundo;
+
+    tlista tvivos, tmortos, fmortos, fvivos, *tvivosPtr, *tmortosPtr, *fmortosPtr, *fvivosPtr;
+    tvivosPtr = &tvivos;
+    fvivosPtr =&fvivos;
+    tmortosPtr= &tmortos;
+    fmortosPtr= &fmortos;
 
     int opt; // opcao switch
     interface();
     perguntarordem();
-    recebe_ordem();
-    preenche_matriz();
+    recebe_ordem(mundoPtr);
+    preenche_matriz(mundoPtr,tvivosPtr,tmortosPtr);
+
 
     do {
-        submenu();
+        submenu(mundoPtr);
         scanf("%d", &opt);
 
         switch (opt) {
@@ -22,26 +32,33 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
                 do {
                     cordenadas();
 
-                    scanf("%d %d", &tvivos.celula[tvivos.cont].lin, &tvivos.celula[tvivos.cont].col);//pegando os valores das cordenadas
-                    if ((tvivos.celula[tvivos.cont].lin >= mundo.ordem || tvivos.celula[tvivos.cont].lin < 0) || (tvivos.celula[tvivos.cont].col >= mundo.ordem || tvivos.celula[tvivos.cont].col < 0)|| mundo.matriz[tvivos.celula[tvivos.cont].col][tvivos.celula[tvivos.cont].lin] =="0")//caso o valor seja invalido
+                    scanf("%d %d", &tvivosPtr->celula[tvivosPtr->cont].lin, &tvivosPtr->celula[tvivosPtr->cont].col);//pegando os valores das cordenadas
+                    if ((tvivosPtr->celula[tvivosPtr->cont].lin >= mundoPtr->ordem || tvivosPtr->celula[tvivosPtr->cont].lin < 0) || (tvivosPtr->celula[tvivosPtr->cont].col >= mundo.ordem || tvivosPtr->celula[tvivosPtr->cont].col < 0) || mundoPtr->matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col] =='0')//caso o valor seja invalido
                         mensagemdeerro();
-                } while ((tvivos.celula[tvivos.cont].lin >= mundo.ordem || tvivos.celula[tvivos.cont].lin < 0) || (tvivos.celula[tvivos.cont].col >= mundo.ordem || tvivos.celula[tvivos.cont].col < 0) || mundo.matriz[tvivos.celula[tvivos.cont].col][tvivos.celula[tvivos.cont].lin] =="0");//se o valor for invalido volta de novo para o "do"
 
-                conta_vizinhos();
+                } while ((tvivosPtr->celula[tvivosPtr->cont].lin >= mundoPtr->ordem || tvivosPtr->celula[tvivosPtr->cont].lin < 0) || (tvivosPtr->celula[tvivosPtr->cont].col >= mundo.ordem || tvivosPtr->celula[tvivosPtr->cont].col < 0) || mundoPtr->matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col] =='0');//se o valor for invalido volta de novo para o "do"
+                mundoPtr->matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col] = '0';
+                colocandovizinhosmortos(mundoPtr,tvivosPtr,tmortosPtr);
+                denifir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr,tmortosPtr);
                 break;
 
             case 2:
-                preenche_matriz();//Marcar cada termo das matrix com celulas mortas
+                preenche_matriz(mundoPtr,tvivosPtr,tmortosPtr);//Marcar cada termo da matriz com celulas mortas
                 break;
             case 3:
-                if (tvivos.cont != 0){ //Impedir o usuario de selecionar a lista, caso o numero de celulas vivas seja igual a 0 (matriz vazia)
-                    listas();
+                if (tvivosPtr->cont != 0)
+                { //Impedir o usuario de selecionar a lista, caso o numero de celulas vivas seja igual a 0 (matriz vazia)
+                    listas(tvivosPtr,tmortosPtr);
                 }
                 break;
             case 4:
-                if (tvivos.cont != 0) { //Impedir o usuario de ver o numero de celulas MORTAS e VIVAS vizinhas, caso o numero de celulas vivas seja igual a 0 (matriz vazia)
-                    celulasvolta();
+                if (tvivosPtr->cont != 0)
+                { //Impedir o usuario de ver o numero de celulas MORTAS e VIVAS vizinhas, caso o numero de celulas vivas seja igual a 0 (matriz vazia)
+                    nVizinhos(tvivosPtr,tmortosPtr);
                 }
+                break;
+            case 5:
+
                 break;
             default:
                 break;
