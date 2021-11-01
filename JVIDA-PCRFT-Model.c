@@ -1,5 +1,3 @@
-
-
 #include "JVIDA-PCRFT-Model.h"
 #include "JVIDA-PCRFT-View.h"
 

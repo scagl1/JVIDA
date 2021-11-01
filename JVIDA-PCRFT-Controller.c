@@ -1,9 +1,4 @@
-
-
-
 #include "JVIDA-PCRFT-Controller.h"
-
-
 
 void menu() { // inicio do sistema com menu inicial e logica do programa
     //chamando struct
@@ -19,7 +14,7 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
     int opt; // opcao switch
     int ngeracao,tempogeracao;//case 5 //numero de gerações-tempo entre essas gerações
     int geracao=1;//case 5 // contador do numero de gerações
-    int cont;//case 5 // O contador para o rodar o numero de gerações pedidos
+    int cont;// case 5 // O contador para o rodar o numero de gerações pedidos
     char geracaopausa;//case 5 // A geração que o mundo está
 
 

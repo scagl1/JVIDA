@@ -10,7 +10,7 @@ void perguntarordem()//pergunta a ordem que o usuário quer
 void mostra_matriz(matriz *mundoPtr,int geracao) //mostrar matriz (mundo)
 {
     printf("\n");
-    printf("\nGERAÇÃO: %d",geracao);
+    printf("\nGERACAO: %d",geracao);
     printf("\nLinha (Numeros da esquerda), Coluna (Numeros de cima)\n\n");
 
     if (mundoPtr->ordem <= 10) { //matriz de ordem MENOR que 10 (em 10, teremos coodenadas entre 0-9)
@@ -56,7 +56,7 @@ void submenu(matriz *mundoPtr, int geracao)//mostra sub-menu para o usuario
            "2 - Limpar mundo matricial\n"
            "3 - Listar celulas vivas, e mortas vizinhas\n"
            "4 - Obter numero de celulas vivas e mortas em volta de uma celula viva\n"
-           "5 - Gerações\n"
+           "5 - Geracoes\n"
            "0 - Sair do programa\n");
 }
 void cordenadas()//perguntar as cordenadas para escolher a celulas vivas
@@ -69,7 +69,7 @@ void mensagemdeerro()//caso tenha algo de errado a informar ao usuario
 }
 
 
-void interface()//mostrar pagina inicial do jogo
+void interface()//Mostra a pagina inicial do jogo
 {
 
     printf("_________________________________________________________________________________\n"
