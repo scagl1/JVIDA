@@ -1,4 +1,4 @@
-#include <stdio.h>
+
 
 #include "JVIDA-PCRFT-Model.h"
 #include "JVIDA-PCRFT-View.h"
@@ -86,36 +86,64 @@ void denifir_numero_de_vizinhos_vivo_e_mortos(tlista *tvivosPtr, tlista *tmortos
         vizinhos = 0;
     }
 }
-
-
-void colocandovizinhosmortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
+void colocandovizinhosmortost(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
 {
+
     //Adiciona todos os vizinhos como mortos
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin+1;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col;
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin-1;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col;
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col+1;
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col-1;
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin+1;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col+1;
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin-1;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col+1;
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin+1;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col-1;
-    tmortosPtr->cont++;
-    tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin-1;
-    tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col-1;
-    arrumandolistamortos(mundoPtr,tvivosPtr,tmortosPtr);
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin + 1;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col;
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin - 1;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col;
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col + 1;
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col - 1;
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin + 1;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col + 1;
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin - 1;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col + 1;
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin + 1;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col - 1;
+        tmortosPtr->cont++;
+        tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin - 1;
+        tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col - 1;
+        arrumandolistamortos(mundoPtr,tvivosPtr,tmortosPtr);
+
+
+}
+void colocandovizinhosmortosf(tlista *fvivosPtr,tlista *fmortosPtr)
+{
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin + 1;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col;
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin - 1;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col;
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col + 1;
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col - 1;
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin + 1;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col + 1;
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin - 1;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col + 1;
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin + 1;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col - 1;
+    fmortosPtr->cont++;
+    fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin - 1;
+    fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col - 1;
 }
 void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
 {
@@ -179,4 +207,52 @@ void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
             }
         }
     }
+}
+
+void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fvivosPtr,tlista *fmortosPtr)
+{
+    fvivosPtr->cont=0;
+    fmortosPtr->cont=0;
+
+  for(int k=1;k<=tmortosPtr->cont;k++)
+  {
+      if(tmortosPtr->celula[k].vizinhosvivos==3)
+      {
+          fvivosPtr->cont++;
+          fvivosPtr->celula[fvivosPtr->cont].lin=tmortosPtr->celula[k].lin;
+          fvivosPtr->celula[fvivosPtr->cont].col=tmortosPtr->celula[k].col;
+          mundoPtr->matriz[tmortosPtr->celula[k].lin][tmortosPtr->celula[k].col]='0';
+          colocandovizinhosmortosf(fvivosPtr,fmortosPtr);
+
+      }
+  }
+  for(int j=1;j<=tvivosPtr->cont;j++)
+  {
+      if((tvivosPtr->celula[j].vizinhosvivos==2) || (tvivosPtr->celula[j].vizinhosvivos==3))
+      {
+          fvivosPtr->cont++;
+          fvivosPtr->celula[fvivosPtr->cont].lin=tvivosPtr->celula[j].lin;
+          fvivosPtr->celula[fvivosPtr->cont].col=tvivosPtr->celula[j].col;
+
+          colocandovizinhosmortosf(fvivosPtr,fmortosPtr);
+      }else
+      {
+          mundoPtr->matriz[tvivosPtr->celula[j].lin][tvivosPtr->celula[j].col]= '.';
+      }
+  }
+    for(int f=1;f<=fmortosPtr->cont;f++)
+    {
+        tmortosPtr->celula[f].lin=fmortosPtr->celula[f].lin;
+        tmortosPtr->celula[f].col=fmortosPtr->celula[f].col;
+    }
+    tmortosPtr->cont=fmortosPtr->cont;
+    for(int f=1;f<=fvivosPtr->cont;f++)
+    {
+        tvivosPtr->celula[f].lin=fvivosPtr->celula[f].lin;
+        tvivosPtr->celula[f].col=fvivosPtr->celula[f].col;
+    }
+    tvivosPtr->cont=fvivosPtr->cont;
+    arrumandolistamortos(mundoPtr,tvivosPtr,tmortosPtr);
+    denifir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr,tmortosPtr);
+
 }

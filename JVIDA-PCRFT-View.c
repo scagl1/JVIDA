@@ -1,4 +1,4 @@
-#include <stdio.h>
+
 #include "JVIDA-PCRFT-View.h"
 
 
@@ -7,9 +7,11 @@ void perguntarordem()//pergunta a ordem que o usuário quer
 {
     printf("\nPor favor, insira a ordem da matriz (De 2 a %d): ", max_ordem);
 }
-void mostra_matriz(matriz *mundoPtr) //mostrar matriz (mundo)
+void mostra_matriz(matriz *mundoPtr,int geracao) //mostrar matriz (mundo)
 {
-    printf("Linha (Numeros da esquerda), Coluna (Numeros de cima)\n\n");
+    printf("\n");
+    printf("\nGERAÇÃO: %d",geracao);
+    printf("\nLinha (Numeros da esquerda), Coluna (Numeros de cima)\n\n");
 
     if (mundoPtr->ordem <= 10) { //matriz de ordem MENOR que 10 (em 10, teremos coodenadas entre 0-9)
         printf("   ");
@@ -45,15 +47,16 @@ void mostra_matriz(matriz *mundoPtr) //mostrar matriz (mundo)
         }
     }
 }
-void submenu(matriz *mundoPtr)//mostra sub-menu para o usuario
+void submenu(matriz *mundoPtr, int geracao)//mostra sub-menu para o usuario
 {
     printf("\nLegenda --> Vivo = 0  Morto = .\n\n");
-    mostra_matriz(mundoPtr);
+    mostra_matriz(mundoPtr,geracao);
     printf("\nPor favor, escolha uma opcao: \n"
            "1 - Selecionar uma coodernada\n"
            "2 - Limpar mundo matricial\n"
            "3 - Listar celulas vivas, e mortas vizinhas\n"
            "4 - Obter numero de celulas vivas e mortas em volta de uma celula viva\n"
+           "5 - Gerações\n"
            "0 - Sair do programa\n");
 }
 void cordenadas()//perguntar as cordenadas para escolher a celulas vivas
@@ -124,4 +127,16 @@ void  nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr)
     {
         printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n",posicaolista,tmortosPtr->celula[posicaolista].lin,tmortosPtr->celula[posicaolista].col,tmortosPtr->celula[posicaolista].vizinhosvivos );
     }
+}
+void pergunta_geracoes()
+{
+    printf("\nPor favor, Digite o numero de gerações que você quer simular:");
+}
+void pergunta_intervalo_geracoes()
+{
+    printf("\nAgora, digite o intervalo de tempo da sua escolha entre 0 a 10 segundos(0=passoa-a-passoa,a cada geração:");
+}
+void pergunta_passo_a_passo()
+{
+    printf("\nDigite p para ir para proxima geração ou s para sair :");
 }
