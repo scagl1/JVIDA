@@ -7,9 +7,23 @@ void perguntarordem()//pergunta a ordem que o usuário quer
 {
     printf("\nPor favor, insira a ordem da matriz (De 2 a %d): ", max_ordem);
 }
-void mostra_matriz(matriz *mundoPtr,int geracao) //mostrar matriz (mundo)
+void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostrarmortos) //mostrar matriz (mundo)
 {
+    if(mostrarmortos==true)
+    {
+        for(int cont=1;cont<=tmortosPtr->cont;cont++)
+        {
+            mundoPtr->matriz[tmortosPtr->celula[cont].lin][tmortosPtr->celula[cont].col]='+';
+        }
+    }else
+    {
+        for(int cont=1;cont<=tmortosPtr->cont;cont++)
+        {
+            mundoPtr->matriz[tmortosPtr->celula[cont].lin][tmortosPtr->celula[cont].col]='.';
+        }
+    }
     printf("\n");
+    printf("\nLegenda --> Vivo = 0  Morto = . Mortos vizinhos = + \n\n");
     printf("\nGERACAO: %d",geracao);
     printf("\nLinha (Numeros da esquerda), Coluna (Numeros de cima)\n\n");
 
@@ -47,16 +61,17 @@ void mostra_matriz(matriz *mundoPtr,int geracao) //mostrar matriz (mundo)
         }
     }
 }
-void submenu(matriz *mundoPtr, int geracao)//mostra sub-menu para o usuario
+void submenu(matriz *mundoPtr,tlista *tmortosPtr, int geracao, bool mostrarmortos )//mostra sub-menu para o usuario
 {
-    printf("\nLegenda --> Vivo = 0  Morto = .\n\n");
-    mostra_matriz(mundoPtr,geracao);
+
+    mostra_matriz(mundoPtr,tmortosPtr,geracao, mostrarmortos);
     printf("\nPor favor, escolha uma opcao: \n"
            "1 - Selecionar uma coodernada\n"
            "2 - Limpar mundo matricial\n"
            "3 - Listar celulas vivas, e mortas vizinhas\n"
            "4 - Obter numero de celulas vivas e mortas em volta de uma celula viva\n"
            "5 - Geracoes\n"
+           "6 - mostrar mortos vizinhos(Ativar-Desativar)\n"
            "0 - Sair do programa\n");
 }
 void cordenadas()//perguntar as cordenadas para escolher a celulas vivas

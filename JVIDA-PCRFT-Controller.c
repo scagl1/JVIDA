@@ -16,6 +16,7 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
     int geracao=1;//case 5 // contador do numero de gerações
     int cont;// case 5 // O contador para o rodar o numero de gerações pedidos
     char geracaopausa;//case 5 // A geração que o mundo está
+    bool mostrarmortos=false;
 
 
     interface();
@@ -24,7 +25,8 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
     preenche_matriz(mundoPtr,tvivosPtr,tmortosPtr);
 
     do {
-        submenu(mundoPtr,geracao);
+        geracao=1;
+        submenu(mundoPtr,tmortosPtr,geracao,mostrarmortos);
         scanf("%d", &opt);
 
         switch (opt) {
@@ -60,6 +62,7 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
                 break;
             case 5:
                 cont=1;
+
                 pergunta_geracoes();
                 scanf("%d",&ngeracao);
                 pergunta_intervalo_geracoes();
@@ -70,9 +73,11 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
                     geracoes(mundoPtr,tvivosPtr,tmortosPtr,fvivosPtr,fmortosPtr);
                     cont++;
                     geracao++;
-                    mostra_matriz(mundoPtr,geracao);
-                    printf("\n%d\n",tempogeracao);
-                    if(tempogeracao==0)
+                    mostra_matriz(mundoPtr,tmortosPtr,geracao,mostrarmortos);
+                    listas(tvivosPtr,tmortosPtr);
+                    if (tvivosPtr->cont==0)
+                        printf("Não existe nem uma celula viva depois dessa geração");
+                    else if(tempogeracao==0)
                     {
                         do{
                             pergunta_passo_a_passo();
@@ -86,11 +91,18 @@ void menu() { // inicio do sistema com menu inicial e logica do programa
                     sleep(tempogeracao);
 
 
-                } while ((cont<ngeracao)&&(geracaopausa!='s'));
+                } while ((cont<ngeracao)&&(geracaopausa!='s')&&(tvivosPtr->cont!=0));
+
+
+                break;
+            case 6:
+                mostrarmortos=mostrar_mortos_vizinhos(mostrarmortos);
+
 
 
                 break;
             default:
+                mensagemdeerro();
                 break;
         }
 

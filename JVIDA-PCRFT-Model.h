@@ -2,6 +2,7 @@
 #define JOGO_DA_VIDA_JVIDA_PCRFT_MODEL_H
 #include <stdio.h>
 #include <unistd.h>
+#include <stdbool.h>
 #define max_ordem 30
 
 //Variaveis globais
@@ -27,5 +28,5 @@ void colocandovizinhosmortost(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortos
 void colocandovizinhosmortosf(tlista *fvivosPtr,tlista *fmortosPtr);
 void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr);
 void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fvivosPtr,tlista *fmortosPtr);
-
+int mostrar_mortos_vizinhos(bool mostrarmortos);
 #endif //JOGO_DA_VIDA_JVIDA_PCRFT_MODEL_H

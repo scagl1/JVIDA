@@ -212,18 +212,21 @@ void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fviv
     fvivosPtr->cont=0;
     fmortosPtr->cont=0;
 
-  for(int k=1;k<=tmortosPtr->cont;k++)
-  {
-      if(tmortosPtr->celula[k].vizinhosvivos==3)
-      {
+  for(int k=1;k<=tmortosPtr->cont;k++) {
+      if (tmortosPtr->celula[k].vizinhosvivos == 3) {
           fvivosPtr->cont++;
-          fvivosPtr->celula[fvivosPtr->cont].lin=tmortosPtr->celula[k].lin;
-          fvivosPtr->celula[fvivosPtr->cont].col=tmortosPtr->celula[k].col;
-          mundoPtr->matriz[tmortosPtr->celula[k].lin][tmortosPtr->celula[k].col]='0';
-          colocandovizinhosmortosf(fvivosPtr,fmortosPtr);
+          fvivosPtr->celula[fvivosPtr->cont].lin = tmortosPtr->celula[k].lin;
+          fvivosPtr->celula[fvivosPtr->cont].col = tmortosPtr->celula[k].col;
+          mundoPtr->matriz[tmortosPtr->celula[k].lin][tmortosPtr->celula[k].col] = '0';
+          colocandovizinhosmortosf(fvivosPtr, fmortosPtr);
 
+      } else
+      {
+          mundoPtr->matriz[tmortosPtr->celula[k].lin][tmortosPtr->celula[k].col] = '.';
       }
   }
+
+
   for(int j=1;j<=tvivosPtr->cont;j++)
   {
       if((tvivosPtr->celula[j].vizinhosvivos==2) || (tvivosPtr->celula[j].vizinhosvivos==3))
@@ -252,5 +255,17 @@ void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fviv
     tvivosPtr->cont=fvivosPtr->cont;
     arrumandolistamortos(mundoPtr,tvivosPtr,tmortosPtr);
     denifir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr,tmortosPtr);
+
+}
+int mostrar_mortos_vizinhos(bool mostrarmortos)
+{
+    if(mostrarmortos==true)
+    {
+        mostrarmortos=false;
+    }else
+    {
+        mostrarmortos=true;
+    }
+    return mostrarmortos;
 
 }
