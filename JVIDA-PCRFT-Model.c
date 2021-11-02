@@ -1,28 +1,17 @@
 #include "JVIDA-PCRFT-Model.h"
-#include "JVIDA-PCRFT-View.h"
 
-//funções
-void preenche_matriz(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr) // colocando toda a matriz que vai ser o mundo como celulas mortas
+//Preenchimento da matriz com celulas mortas. Esta funcao também é utilizada no Case 3 do switch do menu.
+void preenche_matriz(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
 {
-
     for (int i = 0; i < mundoPtr->ordem; i++)
         for (int j = 0; j < mundoPtr->ordem; j++)
-        {
             mundoPtr->matriz[i][j] = '.';
-        }
     tvivosPtr->cont = 0;
     tmortosPtr->cont = 0;
 }
-void recebe_ordem(matriz *mundoPtr) //pegar o tamanho da matriz (mundo) que o usuário quer
-{
-    do {
-        scanf("%d", &mundoPtr->ordem);
-        if (mundoPtr->ordem > max_ordem || mundoPtr->ordem <= 1) {
-            mensagemdeerro();
-        }
-    } while (mundoPtr->ordem > max_ordem || mundoPtr->ordem <= 1);
-}
-void denifir_numero_de_vizinhos_vivo_e_mortos(tlista *tvivosPtr, tlista *tmortosPtr)
+
+//Varre o array verificando celulas vivas proximas
+void definir_numero_de_vizinhos_vivo_e_mortos(tlista *tvivosPtr, tlista *tmortosPtr)
 {
     int vizinhos = 0;
 
@@ -44,7 +33,7 @@ void denifir_numero_de_vizinhos_vivo_e_mortos(tlista *tvivosPtr, tlista *tmortos
         tvivosPtr->celula[coordenada].vizinhosvivos=vizinhos;
         vizinhos = 0;
     }
-    vizinhos=0;
+    vizinhos = 0;
 
     for(int coordenada = 1;coordenada<=tvivosPtr->cont;coordenada++)
     {
@@ -84,10 +73,10 @@ void denifir_numero_de_vizinhos_vivo_e_mortos(tlista *tvivosPtr, tlista *tmortos
         vizinhos = 0;
     }
 }
+
+//Nesta funcao, adiciona-se todos os vizinhos como mortos
 void colocandovizinhosmortost(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
 {
-
-    //Adiciona todos os vizinhos como mortos
         tmortosPtr->cont++;
         tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin + 1;
         tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col;
@@ -113,9 +102,9 @@ void colocandovizinhosmortost(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortos
         tmortosPtr->celula[tmortosPtr->cont].lin = tvivosPtr->celula[tvivosPtr->cont].lin - 1;
         tmortosPtr->celula[tmortosPtr->cont].col = tvivosPtr->celula[tvivosPtr->cont].col - 1;
         arrumandolistamortos(mundoPtr,tvivosPtr,tmortosPtr);
-
-
 }
+
+//Adiciona-se todos os vizinhos como mortos na lista temporária com representação de mortos '+'
 void colocandovizinhosmortosf(tlista *fvivosPtr,tlista *fmortosPtr)
 {
     fmortosPtr->cont++;
@@ -143,26 +132,27 @@ void colocandovizinhosmortosf(tlista *fvivosPtr,tlista *fmortosPtr)
     fmortosPtr->celula[fmortosPtr->cont].lin = fvivosPtr->celula[fvivosPtr->cont].lin - 1;
     fmortosPtr->celula[fmortosPtr->cont].col = fvivosPtr->celula[fvivosPtr->cont].col - 1;
 }
+
+//Organiza a lista de mortos,
 void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
 {
-    //Limpando a lista de mortos das invalidas, das celulas
+    //Limpa a lista de mortos das celulas invalidas
     for (int j = 1; j<=tmortosPtr->cont; j++)
     {
-        //Limpando a lista de mortos das e invalidas das celulas
         if ((tmortosPtr->celula[j].lin <= -1) || (tmortosPtr->celula[j].col <= -1) || (tmortosPtr->celula[j].lin >= mundoPtr->ordem) || (tmortosPtr->celula[j].col >= mundoPtr->ordem))
         {
-            //Sobrepondo elementos errados da lista com os posteriores]
+            //Sobrepoe elementos errados da lista com seus devidos posteriores
             if (j != tmortosPtr->cont)
                 for (int z = j + 1; z <= tmortosPtr->cont; z++) {
                     tmortosPtr->celula[z - 1].lin = tmortosPtr->celula[z].lin;
                     tmortosPtr->celula[z - 1].col = tmortosPtr->celula[z].col;
                 }
-            //Diminuindo o tamanho da lista
+            //Diminui o tamanho da lista
             j--;
             tmortosPtr->cont--;
         }
     }
-    // Limpando a lista de mortos das duplicatas
+    //Limpando a lista de mortos das duplicatas
     for (int k=1; k <= tmortosPtr->cont; k++)
     {
         for (int j = 1; j<=tmortosPtr->cont; j++)
@@ -192,7 +182,7 @@ void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
             {
 
                 //Sobrepondo elementos errados da lista com os posteriores
-                if (j!=tmortosPtr->cont)
+                if (j != tmortosPtr->cont)
                     for (int z = j + 1; z <= tmortosPtr->cont; z++)
                     {
                         tmortosPtr->celula[z - 1].lin = tmortosPtr->celula[z].lin;
@@ -207,12 +197,13 @@ void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
     }
 }
 
+
 void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fvivosPtr,tlista *fmortosPtr)
 {
-    fvivosPtr->cont=0;
-    fmortosPtr->cont=0;
+    fvivosPtr->cont = 0;
+    fmortosPtr->cont = 0;
 
-  for(int k=1;k<=tmortosPtr->cont;k++) {
+  for(int k = 1; k<=tmortosPtr->cont; k++) {
       if (tmortosPtr->celula[k].vizinhosvivos == 3) {
           fvivosPtr->cont++;
           fvivosPtr->celula[fvivosPtr->cont].lin = tmortosPtr->celula[k].lin;
@@ -254,18 +245,20 @@ void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fviv
     }
     tvivosPtr->cont=fvivosPtr->cont;
     arrumandolistamortos(mundoPtr,tvivosPtr,tmortosPtr);
-    denifir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr,tmortosPtr);
-
+    definir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr,tmortosPtr);
 }
+
 int mostrar_mortos_vizinhos(bool mostrarmortos)
 {
-    if(mostrarmortos==true)
-    {
-        mostrarmortos=false;
-    }else
-    {
-        mostrarmortos=true;
-    }
+    if(mostrarmortos == true)
+        mostrarmortos = false;
+    else
+        mostrarmortos = true;
     return mostrarmortos;
+}
 
+//Limpa o buffer do teclado
+void limpa_buffer(){
+    int x;
+    while((x = fgetc(stdin)) != EOF && x != '\n' ){}
 }

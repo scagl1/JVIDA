@@ -1,8 +1,6 @@
 #ifndef JOGO_DA_VIDA_JVIDA_PCRFT_CONTROLLER_H
 #define JOGO_DA_VIDA_JVIDA_PCRFT_CONTROLLER_H
-#include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
+
 #include "JVIDA-PCRFT-View.h"
 #include "JVIDA-PCRFT-Model.h"
 

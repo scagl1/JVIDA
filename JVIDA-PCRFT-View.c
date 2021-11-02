@@ -1,13 +1,12 @@
-
 #include "JVIDA-PCRFT-View.h"
 
-
-//funções
-void perguntarordem()//pergunta a ordem que o usuário quer
+void perguntarordem()//Pergunta a ordem do mundo matricial que o usuário quer
 {
     printf("\nPor favor, insira a ordem da matriz (De 2 a %d): ", max_ordem);
 }
-void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostrarmortos) //mostrar matriz (mundo)
+
+//Mostrar matriz (mundo)
+void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostrarmortos)
 {
     if(mostrarmortos==true)
     {
@@ -23,11 +22,11 @@ void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostra
         }
     }
     printf("\n");
-    printf("\nLegenda --> Vivo = 0  Morto = . Mortos vizinhos = + \n\n");
-    printf("\nGERACAO: %d",geracao);
-    printf("\nLinha (Numeros da esquerda), Coluna (Numeros de cima)\n\n");
+    printf("\nLegenda --> Vivo = 0  Morto = . Mortos vizinho = + \n");
+    printf("\nGERACAO: %d", geracao);
+    printf("\nLinha (numeros da esquerda), Coluna (numeros de cima)\n\n");
 
-    if (mundoPtr->ordem <= 10) { //matriz de ordem MENOR que 10 (em 10, teremos coodenadas entre 0-9)
+    if (mundoPtr->ordem <= 10) { //Condição caso matriz seja de ordem MENOR que 10 (em 10, teremos coodenadas entre 0-9)
         printf("   ");
         for (int i = 0; i < mundoPtr->ordem; i++)
             printf("%d  ", i);
@@ -39,7 +38,7 @@ void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostra
                 printf("%c  ", mundoPtr->matriz[i][j]);
             printf("\n");
         }
-    } else { //matriz de ordem MAIOR que 10 (visa-se melhor espacamento)
+    } else { //Condição caso matriz seja de ordem MAIOR que 10 (visando melhor espacamento)
         printf("    ");
         for (int i = 0; i < mundoPtr->ordem; i++)
             if (i >= 10) {
@@ -61,9 +60,10 @@ void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostra
         }
     }
 }
-void submenu(matriz *mundoPtr,tlista *tmortosPtr, int geracao, bool mostrarmortos )//mostra sub-menu para o usuario
-{
 
+//Visualização do sub-menu
+void submenu(matriz *mundoPtr,tlista *tmortosPtr, int geracao, bool mostrarmortos )
+{
     mostra_matriz(mundoPtr,tmortosPtr,geracao, mostrarmortos);
     printf("\nPor favor, escolha uma opcao: \n"
            "1 - Selecionar uma coodernada\n"
@@ -71,22 +71,20 @@ void submenu(matriz *mundoPtr,tlista *tmortosPtr, int geracao, bool mostrarmorto
            "3 - Listar celulas vivas, e mortas vizinhas\n"
            "4 - Obter numero de celulas vivas e mortas em volta de uma celula viva\n"
            "5 - Geracoes\n"
-           "6 - mostrar mortos vizinhos(Ativar-Desativar)\n"
+           "6 - Mostrar mortos vizinhos (Selecione novamente para desativar)\n"
            "0 - Sair do programa\n");
 }
-void cordenadas()//perguntar as cordenadas para escolher a celulas vivas
+void cordenadas()//Perguntar as cordenadas para escolher a celulas vivas (Case 1)
 {
     printf("Coodernadas - LINHA E COLUNA (Ex: 1 1): ");
 }
-void mensagemdeerro()//caso tenha algo de errado a informar ao usuario
+void mensagemdeerro()//Mensagem de erro ao usuário
 {
     printf("\nVoce digitou algo errado\nTente novamente!\n");
 }
 
-
-void interface()//Mostra a pagina inicial do jogo
+void interface()//Arte da página inicial do jogo
 {
-
     printf("_________________________________________________________________________________\n"
            "|           ____                                                                |\n"
            "|       _.-'78o `\"`--._                                                         |\n"
@@ -106,25 +104,20 @@ void interface()//Mostra a pagina inicial do jogo
            "|          `-----`---'                                                          |\n"
            "|_______________________________________________________________________________|\n");
 }
+
+//Apresenta a tabela de células vivas, e mortas vizinhas
 void listas(tlista *tvivosPtr,tlista *tmortosPtr)
 {
-    printf("\t    VIVOS\n ");
-    printf("\t______________\n");
-    printf("\tLinha | Coluna\n");
-    for (int i = 1; i <=tvivosPtr->cont; i++) {
+    printf("\nVIVOS (Linha | Coluna):\n ");
 
+    for (int i = 1; i <= tvivosPtr->cont; i++)
+        printf("(%d | %d) ", tvivosPtr->celula[i].lin, tvivosPtr->celula[i].col);
 
-        printf(" \t    %d | %d\n", tvivosPtr->celula[i].lin, tvivosPtr->celula[i].col);
-    }
     printf("\n\n");
-    printf("\t    MORTOS\n ");
-    printf("\t______________\n");
-    printf("\tLinha | Coluna\n");
+    printf("MORTOS (Linha | Coluna):\n ");
     for (int i = 1; i <=tmortosPtr->cont; i++)
     {
-
-        printf(" \t    %d | %d\n", tmortosPtr->celula[i].lin, tmortosPtr->celula[i].col);
-
+        printf("(%d | %d) ", tmortosPtr->celula[i].lin, tmortosPtr->celula[i].col);
     }
 }
 
@@ -133,25 +126,35 @@ void  nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr)
     printf("\t    VIVOS\n");
     for(int posicaolista=1;posicaolista<=tvivosPtr->cont;posicaolista++)
     {
-
-        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n",posicaolista,tvivosPtr->celula[posicaolista].lin,tvivosPtr->celula[posicaolista].col,tvivosPtr->celula[posicaolista].vizinhosvivos );
-        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) MORTOS.\n",posicaolista,tvivosPtr->celula[posicaolista].lin,tvivosPtr->celula[posicaolista].col,tvivosPtr->celula[posicaolista].vizinhosmortos);
+        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n", posicaolista,tvivosPtr->celula[posicaolista].lin,tvivosPtr->celula[posicaolista].col,tvivosPtr->celula[posicaolista].vizinhosvivos );
+        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) MORTOS.\n", posicaolista,tvivosPtr->celula[posicaolista].lin,tvivosPtr->celula[posicaolista].col,tvivosPtr->celula[posicaolista].vizinhosmortos);
     }
     printf("\t    MORTOS\n");
-    for(int posicaolista=1;posicaolista<=tmortosPtr->cont;posicaolista++)
+    for(int posicaolista = 1; posicaolista <= tmortosPtr->cont; posicaolista++)
     {
-        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n",posicaolista,tmortosPtr->celula[posicaolista].lin,tmortosPtr->celula[posicaolista].col,tmortosPtr->celula[posicaolista].vizinhosvivos );
+        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n", posicaolista,tmortosPtr->celula[posicaolista].lin,tmortosPtr->celula[posicaolista].col,tmortosPtr->celula[posicaolista].vizinhosvivos );
     }
 }
+
+//As seguintes funcoes realizam a funcao de print, para serem utilizadas em outras funcoes distintas:
+//Começo das funções de print
 void pergunta_geracoes()
 {
-    printf("\nPor favor, Digite o numero de gerações que você quer simular:");
+    printf("\nPor favor, digite o numero de geracoes que deseja simular:");
 }
+
 void pergunta_intervalo_geracoes()
 {
-    printf("\nAgora, digite o intervalo de tempo da sua escolha entre 0 a 10 segundos(0=passoa-a-passoa,a cada geração:");
+    printf("Digite o intervalo de tempo de sua escolha,\nentre 0 a 10 segundos para visualizar"
+           "o desenvolvimento\nde cada geracao: ");
 }
 void pergunta_passo_a_passo()
 {
-    printf("\nDigite p para ir para proxima geração ou s para sair :");
+    printf("\nDigite p para prosseguir, s para sair :");
 }
+
+void aviso_geracao()
+{
+    printf("\nNao existe nenhuma celula viva depois dessa geracao!");
+}
+//Término das funções de print
