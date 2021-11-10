@@ -62,25 +62,33 @@ void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostra
 }
 
 //Visualização do sub-menu
-void submenu(matriz *mundoPtr,tlista *tmortosPtr, int geracao, bool mostrarmortos )
+void submenu(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr, int geracao, bool mostrarmortos )
 {
     mostra_matriz(mundoPtr,tmortosPtr,geracao, mostrarmortos);
+    listas(tvivosPtr, tmortosPtr);
+    printf("\nNUMEROS DE VIVOS: %d",tvivosPtr->cont);
+    printf("\nNUMEROS DE MORTOS-VIZINHOS: %d",tmortosPtr->cont);
+    printf("\n==============================");
     printf("\nPor favor, escolha uma opcao: \n"
-           "1 - Selecionar uma coodernada\n"
+           "1 - Selecionar uma coodernada \n"
            "2 - Limpar mundo matricial\n"
-           "3 - Listar celulas vivas, e mortas vizinhas\n"
-           "4 - Obter numero de celulas vivas e mortas em volta de uma celula viva\n"
-           "5 - Geracoes\n"
-           "6 - Mostrar mortos vizinhos (Selecione novamente para desativar)\n"
+           "3 - Obter numero de celulas vivas e mortas em volta de uma celula viva\n"
+           "4 - Geracoes\n"
+           "5 - Mostrar mortos vizinhos (Selecione novamente para desativar)\n"
+           "6 - Salvar mundo nas listas de mundos\n"
+           "7 - Abrir mundo salvo\n"
            "0 - Sair do programa\n");
 }
 void cordenadas()//Perguntar as cordenadas para escolher a celulas vivas (Case 1)
 {
-    printf("Coodernadas - LINHA E COLUNA (Ex: 1 1): ");
+    printf("\nCoodernadas - LINHA E COLUNA (Ex: 1 1) para sair (-1 -1): ");
 }
 void mensagemdeerro()//Mensagem de erro ao usuário
 {
-    printf("\nVoce digitou algo errado\nTente novamente!\n");
+    printf("\n=======================\n");
+    printf("\nVoce digitou algo errado"
+           "\nTente novamente!\n");
+    printf("\n=======================\n");
 }
 
 void interface()//Arte da página inicial do jogo
@@ -145,16 +153,23 @@ void pergunta_geracoes()
 
 void pergunta_intervalo_geracoes()
 {
-    printf("Digite o intervalo de tempo de sua escolha,\nentre 0 a 10 segundos para visualizar"
-           "o desenvolvimento\nde cada geracao: ");
+    printf("Digite o intervalo de tempo de sua escolha,entre 0 a 10 segundos para visualizar o desenvolvimento de cada geracao: ");
 }
 void pergunta_passo_a_passo()
 {
     printf("\nDigite p para prosseguir, s para sair :");
 }
 
-void aviso_geracao()
+void aviso_geracao(int geracao)
 {
-    printf("\nNao existe nenhuma celula viva depois dessa geracao!");
+    printf("\n====================================================\n"
+           "\nNao existe nenhuma celula viva depois dessa geracao!\n"
+           "\nNumero de geracoes rodadas:%d"
+           "\n====================================================\n",geracao);
 }
-//Término das funções de print
+void mundosalvo()
+{
+    printf("\n========================\n");
+    printf("\n     MUNDO SALVO        \n");
+    printf("\n========================\n");
+}

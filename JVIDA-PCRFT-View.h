@@ -4,8 +4,8 @@
 #include "JVIDA-PCRFT-Model.h"
 
 void perguntarordem();//pergunta a ordem que o usuário quer
-void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr,int geracao,bool);//mostrar  matriz(mundo)
-void submenu(matriz *mundoPtr,tlista *tmortosPtr,int geracao,bool);//mostra sub-menu para o usuario
+void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr,int geracao,bool mostrarmortos);//mostrar  matriz(mundo)
+void submenu(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,int geracao,bool mostrarmortos);//mostra sub-menu para o usuario
 void cordenadas();//peguntar as cordenadas para escolher a celulas vivas
 void mensagemdeerro();//casa tenha algo de errado informar ao usuario
 void interface();//mostrar pagina inicial do jogo
@@ -14,6 +14,7 @@ void nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr);//print de quantos vizinhos
 void pergunta_geracoes();
 void pergunta_intervalo_geracoes();
 void pergunta_passo_a_passo();
-void aviso_geracao();
+void aviso_geracao(int geracao);
+void mundosalvo();
 
 #endif //JOGO_DA_VIDA_JVIDA_PCRFT_VIEW_H

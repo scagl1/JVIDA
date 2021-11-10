@@ -262,3 +262,71 @@ void limpa_buffer(){
     int x;
     while((x = fgetc(stdin)) != EOF && x != '\n' ){}
 }
+
+
+void save(salvo *listasalvaPtr)
+{
+    FILE *listas = fopen("listas.txt","w+"); //Saves a lista de vivos
+
+    if(fopen("listas.txt","w+") != NULL) {
+
+        fprintf(listas, "%i\n", listasalvaPtr->cont);
+        for (int i=1; i <= listasalvaPtr->cont; i++)
+        {
+            fprintf(listas,"%i\n",listasalvaPtr->listasalvas[i].cont);
+            for(int j=1;j<=listasalvaPtr->listasalvas[i].cont;j++)
+            fprintf(listas, "%d/%d-%d-%d\n",listasalvaPtr->listasalvas[i].celula[j].lin,listasalvaPtr->listasalvas[i].celula[j].col,listasalvaPtr->listasalvas[i].celula[j].vizinhosvivos,listasalvaPtr->listasalvas[i].celula[j].vizinhosmortos);
+        }
+    }
+    fclose(listas);
+
+}
+void pegandovalorsalvo(salvo *listasalvaPtr)
+{
+    FILE *listas = fopen("listas.txt","r+"); //Saves a lista de vivos
+
+
+    if(fopen("listas.txt","r+") != NULL) {
+
+        fscanf(listas, "%i\n",&listasalvaPtr->cont);
+        for (int i=1; i <= listasalvaPtr->cont; i++)
+        {
+            fscanf(listas,"%i\n",&listasalvaPtr->listasalvas[i].cont);
+            for(int j=1;j<=listasalvaPtr->listasalvas[i].cont;j++)
+                fscanf(listas, "%d/%d-%d-%d\n",&listasalvaPtr->listasalvas[i].celula[j].lin,&listasalvaPtr->listasalvas[i].celula[j].col,&listasalvaPtr->listasalvas[i].celula[j].vizinhosvivos,&listasalvaPtr->listasalvas[i].celula[j].vizinhosmortos);
+        }
+    }
+
+    fclose(listas);
+
+}
+void aumentarlistasalva(salvo *listasalvaPtr,tlista *tvivosPtr)
+{
+    listasalvaPtr->cont++;
+    listasalvaPtr->listasalvas[listasalvaPtr->cont].cont=tvivosPtr->cont;
+    for(int i=1;i<=tvivosPtr->cont;i++)
+    {
+        listasalvaPtr->listasalvas[listasalvaPtr->cont].celula[i].lin=tvivosPtr->celula[i].lin;
+        listasalvaPtr->listasalvas[listasalvaPtr->cont].celula[i].col=tvivosPtr->celula[i].col;
+        listasalvaPtr->listasalvas[listasalvaPtr->cont].celula[i].vizinhosvivos=tvivosPtr->celula[i].vizinhosvivos;
+        listasalvaPtr->listasalvas[listasalvaPtr->cont].celula[i].vizinhosmortos=tvivosPtr->celula[i].vizinhosmortos;
+    }
+
+}
+void pegarlistasalva(matriz *mundoPtr,salvo *listasalvaPtr,tlista *tvivosPtr,tlista *tmortosPtr,int cont_listasalva)
+{
+    for(int k=1;k<=listasalvaPtr->listasalvas[cont_listasalva].cont;k++)
+    {
+        tvivosPtr->cont++;
+        tvivosPtr->celula[k].lin=listasalvaPtr->listasalvas[cont_listasalva].celula[k].lin;
+        tvivosPtr->celula[k].col=listasalvaPtr->listasalvas[cont_listasalva].celula[k].col;
+        mundoPtr->matriz[tvivosPtr->celula[k].lin][tvivosPtr->celula[k].col]='0';
+        colocandovizinhosmortost(mundoPtr,tvivosPtr,tmortosPtr);
+
+    }
+}
+
+
+
+
+
