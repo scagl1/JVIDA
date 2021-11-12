@@ -16,5 +16,6 @@ void pergunta_intervalo_geracoes();
 void pergunta_passo_a_passo();
 void aviso_geracao(int geracao);
 void mundosalvo();
+void sem_celulas_para_salvar();
 
 #endif //JOGO_DA_VIDA_JVIDA_PCRFT_VIEW_H

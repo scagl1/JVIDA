@@ -50,7 +50,7 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                     mostra_matriz(mundoPtr, tmortosPtr, geracao, mostrarmortos);//imprimir na tela mundo
                     listas(tvivosPtr, tmortosPtr);//imprimir na tela lista de vivos e mortos para teste
 
-                    tvivosPtr->cont++;
+                    tvivosPtr->cont++;//adiciona 1 na lista de vivos
                     do {
 
                         //perguntar as cordenadas
@@ -58,21 +58,21 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                         scanf("%d %d", &tvivosPtr->celula[tvivosPtr->cont].lin,&tvivosPtr->celula[tvivosPtr->cont].col);//Recebendo os valores das cordenadas
                         if ((tvivosPtr->celula[tvivosPtr->cont].lin >= mundoPtr->ordem || tvivosPtr->celula[tvivosPtr->cont].lin < -1) ||(tvivosPtr->celula[tvivosPtr->cont].col >= mundo.ordem ||tvivosPtr->celula[tvivosPtr->cont].col < -1)||(mundo.matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col]=='0') )//Caso o valor seja invalido
                         {
-                            mensagemdeerro();
+                            mensagemdeerro();//mensagem de erro caso for digitado algo errado
 
                         }
                     } while ((tvivosPtr->celula[tvivosPtr->cont].lin >= mundoPtr->ordem || tvivosPtr->celula[tvivosPtr->cont].lin < -1) || (tvivosPtr->celula[tvivosPtr->cont].col >= mundo.ordem || tvivosPtr->celula[tvivosPtr->cont].col < -1)||(mundo.matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col]=='0') );//Se o valor for invalido volta de novo para o "do"
-                    if (tvivosPtr->celula[tvivosPtr->cont].lin !=-1 && tvivosPtr->celula[tvivosPtr->cont].col!= -1)
+                    if (tvivosPtr->celula[tvivosPtr->cont].lin !=-1 && tvivosPtr->celula[tvivosPtr->cont].col!= -1)//se for doferente de -1 e -1
                     {
-                        mundoPtr->matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col] = '0';
-                        colocandovizinhosmortost(mundoPtr, tvivosPtr, tmortosPtr);
-                        definir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr, tmortosPtr);
+                        mundoPtr->matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col] = '0';//define celula como viva
+                        colocandovizinhosmortost(mundoPtr, tvivosPtr, tmortosPtr);//adiciona mortos vizinhos
                     }
                 } while (tvivosPtr->celula[tvivosPtr->cont].lin !=-1 && tvivosPtr->celula[tvivosPtr->cont].col!= -1);
-                if(tvivosPtr->celula[tvivosPtr->cont].lin ==-1 && tvivosPtr->celula[tvivosPtr->cont].col== -1)
+                if(tvivosPtr->celula[tvivosPtr->cont].lin ==-1 && tvivosPtr->celula[tvivosPtr->cont].col== -1)//caso for -1 -1
                 {
-                    tvivosPtr->cont--;
+                    tvivosPtr->cont--;//retira 1 do contador da lista de vivos
                 }
+                definir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr, tmortosPtr);//define o numero de vizinho vivos das celulas
                 break;
 
                 //Case 2: Limpar mundo matricial
@@ -107,19 +107,21 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
 
                     if (tvivosPtr->cont == 0)//Caso não haja nenhuma célula viva
                         aviso_geracao(geracao);
-                    else if (tempogeracao == 0) {
+                    else if (tempogeracao == 0) //caso seja 0 o tempogeração e pegunta para passar para proxima
+                    {
                         do {
-                            pergunta_passo_a_passo();
-                            limpa_buffer();
-                            scanf("%c", &geracaopausa);
-                            if ((geracaopausa != 'p') && (geracaopausa != 's')) {
-                                mensagemdeerro();
+                            pergunta_passo_a_passo();//pergunta
+                            limpa_buffer();//limpa o buffer
+                            scanf("%c", &geracaopausa);//pegar a resposta
+                            if ((geracaopausa != 'p') && (geracaopausa != 's'))//caso a resposta seja invalida
+                            {
+                                mensagemdeerro();//mensagem de erro e printada
                             }
-                        } while ((geracaopausa != 'p') && (geracaopausa != 's'));
+                        } while ((geracaopausa != 'p') && (geracaopausa != 's'));//caso o valor seja invalido pergunta de novo
                     }
-                    sleep(tempogeracao);
+                    sleep(tempogeracao);//tempo de espera que o usuario pediu
 
-                } while ((cont < ngeracao) && (geracaopausa != 's') && (tvivosPtr->cont != 0));
+                } while ((cont < ngeracao) && (geracaopausa != 's') && (tvivosPtr->cont != 0));//caso não foi rodado o numero de gerações pedido ou não foi selecionado para sair
 
                 break;
 
@@ -128,25 +130,38 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                 break;
             case 6:
                //salvar
-                aumentarlistasalva(listasalvaPtr,tvivosPtr);
-                save(listasalvaPtr);
-                mundosalvo();
+               if(tvivosPtr->cont>0)//caso exista pelomenos 1 celula viva para salvar
+               {
+                    aumentarlistasalva(listasalvaPtr,tvivosPtr);
+                    save(listasalvaPtr);
+                    mundosalvo();
+
+               }else//caso não tenha nem uma celula viva no mundo que vai salvar
+               {
+                  sem_celulas_para_salvar();
+               }
+                sleep(1.2);
+
 
                 break;
             case 7:
                 preenche_matriz(mundoPtr, tvivosPtr, tmortosPtr); //Marcar cada termo da matriz com celulas mortas
                 pegarlistasalva(mundoPtr,listasalvaPtr,tvivosPtr,tmortosPtr,cont_listasalva);
 
-                if(cont_listasalva>=listasalvaPtr->cont)
+                if(cont_listasalva>=listasalvaPtr->cont)//caso  o contador seja igual a o  maximo
                 {
-                    cont_listasalva=0;
+                    cont_listasalva=0;//volta para o inicio
                 }
-                cont_listasalva++;
+                cont_listasalva++;//aumenta o contador
                 break;
 
-            default: //Case 0/default: Sair do programa
+            default: //Case 0:Sair do programa//default:foi digitado algo errado
             if (opt!=0)
-                mensagemdeerro();
+            {
+                mensagemdeerro();//mensagem de erro caso foi digitado uma opção invalida
+                sleep(1.2);
+            }
+
                 break;
         }
     } while (opt != 0); //Caso a opcao 0 for selecionada. o programa é finalizado

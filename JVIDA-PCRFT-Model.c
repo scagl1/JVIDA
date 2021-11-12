@@ -320,10 +320,12 @@ void pegarlistasalva(matriz *mundoPtr,salvo *listasalvaPtr,tlista *tvivosPtr,tli
         tvivosPtr->cont++;
         tvivosPtr->celula[k].lin=listasalvaPtr->listasalvas[cont_listasalva].celula[k].lin;
         tvivosPtr->celula[k].col=listasalvaPtr->listasalvas[cont_listasalva].celula[k].col;
+        tvivosPtr->celula[k].vizinhosvivos=listasalvaPtr->listasalvas[cont_listasalva].celula[k].vizinhosvivos;
+        tvivosPtr->celula[k].vizinhosmortos=listasalvaPtr->listasalvas[cont_listasalva].celula[k].vizinhosvivos;
         mundoPtr->matriz[tvivosPtr->celula[k].lin][tvivosPtr->celula[k].col]='0';
         colocandovizinhosmortost(mundoPtr,tvivosPtr,tmortosPtr);
-
     }
+    definir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr, tmortosPtr);
 }
 
 

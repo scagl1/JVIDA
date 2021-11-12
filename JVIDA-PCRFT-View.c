@@ -70,9 +70,9 @@ void submenu(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr, int geracao,
     printf("\nNUMEROS DE MORTOS-VIZINHOS: %d",tmortosPtr->cont);
     printf("\n==============================");
     printf("\nPor favor, escolha uma opcao: \n"
-           "1 - Selecionar uma coodernada \n"
+           "1 - Selecionar uma coodernada para adicionar celula viva\n"
            "2 - Limpar mundo matricial\n"
-           "3 - Obter numero de celulas vivas e mortas em volta de uma celula viva\n"
+           "3 - Obter numero de celulas vivas e mortas em volta de uma celula viva(teste e validação)\n"
            "4 - Geracoes\n"
            "5 - Mostrar mortos vizinhos (Selecione novamente para desativar)\n"
            "6 - Salvar mundo nas listas de mundos\n"
@@ -153,7 +153,7 @@ void pergunta_geracoes()
 
 void pergunta_intervalo_geracoes()
 {
-    printf("Digite o intervalo de tempo de sua escolha,entre 0 a 10 segundos para visualizar o desenvolvimento de cada geracao: ");
+    printf("\nDigite o intervalo de tempo,entre 0 a 10 segundos para visualizar o desenvolvimento de cada geracao(0=passo a passo): ");
 }
 void pergunta_passo_a_passo()
 {
@@ -172,4 +172,10 @@ void mundosalvo()
     printf("\n========================\n");
     printf("\n     MUNDO SALVO        \n");
     printf("\n========================\n");
+}
+void sem_celulas_para_salvar()
+{
+    printf("\n================================================\n");
+    printf("\n   NAO TEM NEM UMA CELULA NO MUNDO PARA SALVAR  \n");
+    printf("\n================================================\n");
 }
