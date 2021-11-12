@@ -154,6 +154,9 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                 }
                 cont_listasalva++;//aumenta o contador
                 break;
+            case 8://imprimindo as regras
+                regras();//regras
+                break;
 
             default: //Case 0:Sair do programa//default:foi digitado algo errado
             if (opt!=0)
@@ -164,6 +167,6 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
 
                 break;
         }
-    } while (opt != 0); //Caso a opcao 0 for selecionada. o programa é finalizado
+    } while (opt != 0); //Caso a opcao 0 for selecionada.O programa é finalizado
 
 }

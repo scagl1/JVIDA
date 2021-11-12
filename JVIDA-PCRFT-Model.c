@@ -197,7 +197,7 @@ void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr)
     }
 }
 
-
+//fazer seleção das celulas que continuarão vivas e que também nasceram
 void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fvivosPtr,tlista *fmortosPtr)
 {
     fvivosPtr->cont = 0;
@@ -263,7 +263,7 @@ void limpa_buffer(){
     while((x = fgetc(stdin)) != EOF && x != '\n' ){}
 }
 
-
+//salvando listasalva no arquivo
 void save(salvo *listasalvaPtr)
 {
     FILE *listas = fopen("listas.txt","w+"); //Saves a lista de vivos
@@ -281,6 +281,8 @@ void save(salvo *listasalvaPtr)
     fclose(listas);
 
 }
+
+//pegando a listasalva do arquivo
 void pegandovalorsalvo(salvo *listasalvaPtr)
 {
     FILE *listas = fopen("listas.txt","r+"); //Saves a lista de vivos
@@ -300,6 +302,8 @@ void pegandovalorsalvo(salvo *listasalvaPtr)
     fclose(listas);
 
 }
+
+// colocando um novo mundo nas listasalvas
 void aumentarlistasalva(salvo *listasalvaPtr,tlista *tvivosPtr)
 {
     listasalvaPtr->cont++;
@@ -313,6 +317,8 @@ void aumentarlistasalva(salvo *listasalvaPtr,tlista *tvivosPtr)
     }
 
 }
+
+//colocando no sub-menu os  mundos  salvos nas listasalva  em ordem
 void pegarlistasalva(matriz *mundoPtr,salvo *listasalvaPtr,tlista *tvivosPtr,tlista *tmortosPtr,int cont_listasalva)
 {
     for(int k=1;k<=listasalvaPtr->listasalvas[cont_listasalva].cont;k++)

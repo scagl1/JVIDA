@@ -1,4 +1,5 @@
 #include "JVIDA-PCRFT-View.h"
+//As seguintes funcoes realizam a funcao de print, para serem utilizadas em outras funcoes distintas:
 
 void perguntarordem()//Pergunta a ordem do mundo matricial que o usuário quer
 {
@@ -64,8 +65,8 @@ void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostra
 //Visualização do sub-menu
 void submenu(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr, int geracao, bool mostrarmortos )
 {
-    mostra_matriz(mundoPtr,tmortosPtr,geracao, mostrarmortos);
-    listas(tvivosPtr, tmortosPtr);
+    mostra_matriz(mundoPtr,tmortosPtr,geracao, mostrarmortos);//mostrar mundo
+    listas(tvivosPtr, tmortosPtr);// mostrar lista de vivos e mortos-vizinhos
     printf("\nNUMEROS DE VIVOS: %d",tvivosPtr->cont);
     printf("\nNUMEROS DE MORTOS-VIZINHOS: %d",tmortosPtr->cont);
     printf("\n==============================");
@@ -77,6 +78,7 @@ void submenu(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr, int geracao,
            "5 - Mostrar mortos vizinhos (Selecione novamente para desativar)\n"
            "6 - Salvar mundo nas listas de mundos\n"
            "7 - Abrir mundo salvo\n"
+           "8 - Regras\n"
            "0 - Sair do programa\n");
 }
 void cordenadas()//Perguntar as cordenadas para escolher a celulas vivas (Case 1)
@@ -128,7 +130,7 @@ void listas(tlista *tvivosPtr,tlista *tmortosPtr)
         printf("(%d | %d) ", tmortosPtr->celula[i].lin, tmortosPtr->celula[i].col);
     }
 }
-
+//apresentar numero de celulas vizinhas para teste
 void  nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr)
 {
     printf("\t    VIVOS\n");
@@ -144,22 +146,23 @@ void  nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr)
     }
 }
 
-//As seguintes funcoes realizam a funcao de print, para serem utilizadas em outras funcoes distintas:
-//Começo das funções de print
+
+//perguntar numero de gerações que o usuario quer
 void pergunta_geracoes()
 {
     printf("\nPor favor, digite o numero de geracoes que deseja simular:");
 }
-
+//perguntar intervalo de tempo entre a gerações
 void pergunta_intervalo_geracoes()
 {
     printf("\nDigite o intervalo de tempo,entre 0 a 10 segundos para visualizar o desenvolvimento de cada geracao(0=passo a passo): ");
 }
+//pergunta se deve continuar para proxima geração ou sair para o sub-menu
 void pergunta_passo_a_passo()
 {
-    printf("\nDigite p para prosseguir, s para sair :");
+    printf("\nDigite 'p' para prosseguir, 's' para sair :");
 }
-
+//caso não tenha celula viva na geração informa o usuario
 void aviso_geracao(int geracao)
 {
     printf("\n====================================================\n"
@@ -167,15 +170,28 @@ void aviso_geracao(int geracao)
            "\nNumero de geracoes rodadas:%d"
            "\n====================================================\n",geracao);
 }
+//mostrar que o mundo está salvo
 void mundosalvo()
 {
     printf("\n========================\n");
     printf("\n     MUNDO SALVO        \n");
     printf("\n========================\n");
 }
+//imprimir na tela que não tem nem uma celula no mundo para salvar
 void sem_celulas_para_salvar()
 {
     printf("\n================================================\n");
     printf("\n   NAO TEM NEM UMA CELULA NO MUNDO PARA SALVAR  \n");
     printf("\n================================================\n");
+}
+//imprimir as regras na tela
+void regras()
+{
+    printf("\n============================================================================================================\n"
+           "\nREGRAS:\n"
+           "REPRODUÇÂO: Um ser vivo nasce numa célula vazia se essa célula vazia tiver exatamente 3 seres vivos vizinhos.\n"
+           "SOBREVIVÊNCIA: Um ser vivo que tenha 2 ou 3 vizinhos sobrevive para a geração seguinte.\n"
+           "MORTE POR FALTA DE COMIDA: Um ser vivo com 4 ou mais vizinhos morre porque fica sem comida.\n"
+           "MORTE POR SOLIDÃO: Um ser vivo com 0 ou 1 vizinhos morre de solidão.\n"
+           "\n============================================================================================================\n");
 }
