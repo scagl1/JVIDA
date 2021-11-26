@@ -10,7 +10,7 @@ void cordenadas();//peguntar as cordenadas para escolher a celulas vivas
 void mensagemdeerro();//casa tenha algo de errado informar ao usuario
 void interface();//mostrar pagina inicial do jogo
 void listas(tlista *tvivosPtr,tlista *tmortosPtr);//Listas de celulas vivas e mortas
-void nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr);//print de quantos vizinhos a celula na cordenada x e y possui
+//void nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr);//print de quantos vizinhos a celula na cordenada x e y possui
 void pergunta_geracoes();
 void pergunta_intervalo_geracoes();
 void pergunta_passo_a_passo();

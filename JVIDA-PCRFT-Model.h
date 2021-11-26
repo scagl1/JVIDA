@@ -16,12 +16,13 @@ typedef struct{
 
 typedef struct{
     int lin,col;
-    int vizinhosmortos,vizinhosvivos;
+    int vizinhosvivos;
+
 }cel;
 
 typedef struct {
     int cont;
-    cel celula[max_ordem*max_ordem];
+    cel celula;
 }tlista;
 typedef struct {
     int cont;
@@ -32,9 +33,8 @@ typedef struct {
 void preenche_matriz(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr);
 void definir_numero_de_vizinhos_vivo_e_mortos(tlista *tvivosPtr,tlista *tmortosPtr);
 void colocandovizinhosmortost(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr);
-void colocandovizinhosmortosf(tlista *fvivosPtr,tlista *fmortosPtr);
 void arrumandolistamortos(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr);
-void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fvivosPtr,tlista *fmortosPtr);
+void geracoes(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr,tlista *fvivosPtr);
 int mostrar_mortos_vizinhos(bool mostrarmortos);
 void limpa_buffer();
 void save(salvo *listasalvaPtr);

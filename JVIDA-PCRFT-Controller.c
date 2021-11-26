@@ -4,14 +4,14 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
 
     matriz mundo, *mundoPtr;
     mundoPtr = &mundo;
-    tlista tvivos, tmortos, fmortos, fvivos, *tvivosPtr, *tmortosPtr, *fmortosPtr, *fvivosPtr;
+    tlista tvivos, tmortos, fvivos, *tvivosPtr, *tmortosPtr, *fvivosPtr;
     salvo listasalva, *listasalvaPtr;
 
     listasalvaPtr=&listasalva;
     tvivosPtr = &tvivos;
     fvivosPtr = &fvivos;
     tmortosPtr = &tmortos;
-    fmortosPtr = &fmortos;
+
 
     int opt; //Opcao do usuario embutida no switch
     int ngeracao, tempogeracao;//Case 4 -> numero de geracoes-tempo entre essas gerações
@@ -80,15 +80,9 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
 
                 preenche_matriz(mundoPtr, tvivosPtr, tmortosPtr); //Marcar cada termo da matriz com celulas mortas
                 break;
-                //Case 3: Obter numero de celulas vivas e mortas em volta de uma celula viva
-            case 3:
-
-                if (tvivosPtr->cont != 0) //Impedir o usuario de ver o numero de celulas MORTAS e VIVAS vizinha// caso o numero de celulas vivas seja igual a 0 (matriz vazia)
-                    nVizinhos(tvivosPtr, tmortosPtr);
-                break;
 
 
-            case 4: //Case 4: Geracoes
+            case 3: //Case 3: Geracoes
                 cont = 1;// iniciando contador
                 //perguntar numero de gerações a serem rodadas
                 pergunta_geracoes();
@@ -98,8 +92,9 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                 scanf("%d", &tempogeracao);
                 //loop (do-while) para rodar o número de gerações pedidas
                 do {
+                    geracaopausa='p';
                     //Essa função testa as celulas vivas e seleciona as que de acordo as regras passaram para a próxima geração
-                    geracoes(mundoPtr, tvivosPtr, tmortosPtr, fvivosPtr, fmortosPtr);
+                    geracoes(mundoPtr, tvivosPtr, tmortosPtr, fvivosPtr);
                     cont++;//contador do número de gerações pedidas
                     geracao++;//aumentando o número de gerações
                     mostra_matriz(mundoPtr, tmortosPtr, geracao, mostrarmortos);//imprimir na tela mundo
@@ -125,10 +120,10 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
 
                 break;
 
-            case 5: //Case 5: Mostrar mortos vizinhos em notação '+', NA MATRIZ
+            case 4: //Case 4: Mostrar mortos vizinhos em notação '+', NA MATRIZ
                 mostrarmortos = mostrar_mortos_vizinhos(mostrarmortos);
                 break;
-            case 6:
+            case 5://case5: Adicionar liata salva
                //salvar
                if(tvivosPtr->cont>0)//caso exista pelomenos 1 celula viva para salvar
                {
@@ -140,11 +135,11 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                {
                   sem_celulas_para_salvar();
                }
-                sleep(1.2);
+
 
 
                 break;
-            case 7:
+            case 6://case: recuperar listas salvas em ordem
                 preenche_matriz(mundoPtr, tvivosPtr, tmortosPtr); //Marcar cada termo da matriz com celulas mortas
                 pegarlistasalva(mundoPtr,listasalvaPtr,tvivosPtr,tmortosPtr,cont_listasalva);
 
@@ -154,7 +149,7 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                 }
                 cont_listasalva++;//aumenta o contador
                 break;
-            case 8://imprimindo as regras
+            case 7://case 7:imprimindo as regras
                 regras();//regras
                 break;
 
@@ -162,7 +157,7 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
             if (opt!=0)
             {
                 mensagemdeerro();//mensagem de erro caso foi digitado uma opção invalida
-                sleep(1.2);
+
             }
 
                 break;

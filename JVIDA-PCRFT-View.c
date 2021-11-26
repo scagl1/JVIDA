@@ -73,12 +73,11 @@ void submenu(matriz *mundoPtr,tlista *tvivosPtr,tlista *tmortosPtr, int geracao,
     printf("\nPor favor, escolha uma opcao: \n"
            "1 - Selecionar uma coodernada para adicionar celula viva\n"
            "2 - Limpar mundo matricial\n"
-           "3 - Obter numero de celulas vivas e mortas em volta de uma celula viva(teste e validação)\n"
-           "4 - Geracoes\n"
-           "5 - Mostrar mortos vizinhos (Selecione novamente para desativar)\n"
-           "6 - Salvar mundo nas listas de mundos\n"
-           "7 - Abrir mundo salvo\n"
-           "8 - Regras\n"
+           "3 - Geracoes\n"
+           "4 - Mostrar mortos vizinhos (Selecione novamente para desativar)\n"
+           "5 - Salvar mundo nas listas de mundos\n"
+           "6 - Abrir mundo salvo\n"
+           "7 - Regras\n"
            "0 - Sair do programa\n");
 }
 void cordenadas()//Perguntar as cordenadas para escolher a celulas vivas (Case 1)
@@ -130,21 +129,7 @@ void listas(tlista *tvivosPtr,tlista *tmortosPtr)
         printf("(%d | %d) ", tmortosPtr->celula[i].lin, tmortosPtr->celula[i].col);
     }
 }
-//apresentar numero de celulas vizinhas para teste
-void  nVizinhos(tlista *tvivosPtr,tlista *tmortosPtr)
-{
-    printf("\t    VIVOS\n");
-    for(int posicaolista=1;posicaolista<=tvivosPtr->cont;posicaolista++)
-    {
-        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n", posicaolista,tvivosPtr->celula[posicaolista].lin,tvivosPtr->celula[posicaolista].col,tvivosPtr->celula[posicaolista].vizinhosvivos );
-        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) MORTOS.\n", posicaolista,tvivosPtr->celula[posicaolista].lin,tvivosPtr->celula[posicaolista].col,tvivosPtr->celula[posicaolista].vizinhosmortos);
-    }
-    printf("\t    MORTOS\n");
-    for(int posicaolista = 1; posicaolista <= tmortosPtr->cont; posicaolista++)
-    {
-        printf("Celula %d, na qual esta na coordenada [%d][%d], possui %d vizinho(s) VIVOS.\n", posicaolista,tmortosPtr->celula[posicaolista].lin,tmortosPtr->celula[posicaolista].col,tmortosPtr->celula[posicaolista].vizinhosvivos );
-    }
-}
+
 
 
 //perguntar numero de gerações que o usuario quer
