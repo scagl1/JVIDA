@@ -9,17 +9,21 @@ void perguntarordem()//Pergunta a ordem do mundo matricial que o usuário quer
 //Mostrar matriz (mundo)
 void mostra_matriz(matriz *mundoPtr,tlista *tmortosPtr ,int geracao, bool mostrarmortos)
 {
+    cel *mortosvizinhos;
+    mortosvizinhos=tmortosPtr->celula;
     if(mostrarmortos==true)
     {
-        for(int cont=1;cont<=tmortosPtr->cont;cont++)
+        while(mortosvizinhos!=NULL)
         {
-            mundoPtr->matriz[tmortosPtr->celula[cont].lin][tmortosPtr->celula[cont].col]='+';
+            mundoPtr->matriz[mortosvizinhos->lin][mortosvizinhos->col]='+';
+            mortosvizinhos=mortosvizinhos->next;
         }
     }else
     {
-        for(int cont=1;cont<=tmortosPtr->cont;cont++)
+        while(mortosvizinhos!=NULL)
         {
-            mundoPtr->matriz[tmortosPtr->celula[cont].lin][tmortosPtr->celula[cont].col]='.';
+            mundoPtr->matriz[mortosvizinhos->lin][mortosvizinhos->col]='.';
+            mortosvizinhos=mortosvizinhos->next;
         }
     }
     printf("\n");
@@ -117,16 +121,24 @@ void interface()//Arte da página inicial do jogo
 //Apresenta a tabela de células vivas, e mortas vizinhas
 void listas(tlista *tvivosPtr,tlista *tmortosPtr)
 {
-    printf("\nVIVOS (Linha | Coluna):\n ");
+    cel *vivos, *mortos;
 
-    for (int i = 1; i <= tvivosPtr->cont; i++)
-        printf("(%d | %d) ", tvivosPtr->celula[i].lin, tvivosPtr->celula[i].col);
+    printf("\nVIVOS (Linha | Coluna):\n ");
+    vivos=tvivosPtr->celula;
+    while (vivos!=NULL)
+    {
+        printf("(%d | %d) ", vivos->lin, vivos->col);
+        vivos=vivos->next;
+    }
+
 
     printf("\n\n");
+    mortos=tmortosPtr->celula;
     printf("MORTOS (Linha | Coluna):\n ");
-    for (int i = 1; i <=tmortosPtr->cont; i++)
+    while (mortos!=NULL)
     {
-        printf("(%d | %d) ", tmortosPtr->celula[i].lin, tmortosPtr->celula[i].col);
+        printf("(%d | %d) ", mortos->lin, mortos->col);
+        mortos=mortos->next;
     }
 }
 

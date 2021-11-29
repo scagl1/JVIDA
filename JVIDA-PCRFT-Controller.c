@@ -3,16 +3,21 @@
 void menu() { //Inicio do programa, acompanhado do menu inicial e logica do programa
 
     matriz mundo, *mundoPtr;
-    mundoPtr = &mundo;
     tlista tvivos, tmortos, fvivos, *tvivosPtr, *tmortosPtr, *fvivosPtr;
     salvo listasalva, *listasalvaPtr;
 
+
+    mundoPtr = &mundo;
     listasalvaPtr=&listasalva;
+
     tvivosPtr = &tvivos;
     fvivosPtr = &fvivos;
     tmortosPtr = &tmortos;
 
 
+
+    int lin=-2;
+    int col=-2;
     int opt; //Opcao do usuario embutida no switch
     int ngeracao, tempogeracao;//Case 4 -> numero de geracoes-tempo entre essas gerações
     int geracao = 1;//Case 4 -> contador do numero de gerações
@@ -33,7 +38,7 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
             mensagemdeerro();
     } while (mundoPtr->ordem > max_ordem || mundoPtr->ordem <= 1);
 //limpando as listas e o mundo para prevenir sujeira de memória
-    preenche_matriz(mundoPtr, tvivosPtr, tmortosPtr);
+    preenche_matriz(mundoPtr, tvivosPtr,fvivosPtr,tmortosPtr);
 
     do {
         geracao = 1;// iniciando a geração com  1
@@ -50,35 +55,31 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                     mostra_matriz(mundoPtr, tmortosPtr, geracao, mostrarmortos);//imprimir na tela mundo
                     listas(tvivosPtr, tmortosPtr);//imprimir na tela lista de vivos e mortos para teste
 
-                    tvivosPtr->cont++;//adiciona 1 na lista de vivos
                     do {
 
                         //perguntar as cordenadas
                         cordenadas();
-                        scanf("%d %d", &tvivosPtr->celula[tvivosPtr->cont].lin,&tvivosPtr->celula[tvivosPtr->cont].col);//Recebendo os valores das cordenadas
-                        if ((tvivosPtr->celula[tvivosPtr->cont].lin >= mundoPtr->ordem || tvivosPtr->celula[tvivosPtr->cont].lin < -1) ||(tvivosPtr->celula[tvivosPtr->cont].col >= mundo.ordem ||tvivosPtr->celula[tvivosPtr->cont].col < -1)||(mundo.matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col]=='0') )//Caso o valor seja invalido
+                        scanf("%i %i", &lin,&col);//Recebendo os valores das cordenadas
+                        if ((lin >= mundoPtr->ordem ||lin < -1) || (col >= mundo.ordem || col < -1)||(mundo.matriz[lin][col]=='0') )//Caso o valor seja invalido
                         {
                             mensagemdeerro();//mensagem de erro caso for digitado algo errado
-
                         }
-                    } while ((tvivosPtr->celula[tvivosPtr->cont].lin >= mundoPtr->ordem || tvivosPtr->celula[tvivosPtr->cont].lin < -1) || (tvivosPtr->celula[tvivosPtr->cont].col >= mundo.ordem || tvivosPtr->celula[tvivosPtr->cont].col < -1)||(mundo.matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col]=='0') );//Se o valor for invalido volta de novo para o "do"
-                    if (tvivosPtr->celula[tvivosPtr->cont].lin !=-1 && tvivosPtr->celula[tvivosPtr->cont].col!= -1)//se for doferente de -1 e -1
+                    } while ((lin >= mundoPtr->ordem || lin < -1) || (col >= mundo.ordem || col < -1)||(mundo.matriz[lin][col]=='0') );//Se o valor for invalido volta de novo para o "do"
+                    if (lin !=-1 && col!= -1)//se for doferente de -1 e -1
                     {
-                        mundoPtr->matriz[tvivosPtr->celula[tvivosPtr->cont].lin][tvivosPtr->celula[tvivosPtr->cont].col] = '0';//define celula como viva
-                        colocandovizinhosmortost(mundoPtr, tvivosPtr, tmortosPtr);//adiciona mortos vizinhos
+                        mundoPtr->matriz[lin][col] = '0';//define celula como viva
+                        carregaVivo(tvivosPtr,lin,col,-1);
+                        colocandovizinhosmortost(mundoPtr,tvivosPtr,tmortosPtr,lin,col);//adiciona mortos vizinhos
                     }
-                } while (tvivosPtr->celula[tvivosPtr->cont].lin !=-1 && tvivosPtr->celula[tvivosPtr->cont].col!= -1);
-                if(tvivosPtr->celula[tvivosPtr->cont].lin ==-1 && tvivosPtr->celula[tvivosPtr->cont].col== -1)//caso for -1 -1
-                {
-                    tvivosPtr->cont--;//retira 1 do contador da lista de vivos
-                }
+                } while (lin !=-1 && col!= -1);
+
                 definir_numero_de_vizinhos_vivo_e_mortos(tvivosPtr, tmortosPtr);//define o numero de vizinho vivos das celulas
                 break;
 
                 //Case 2: Limpar mundo matricial
             case 2:
 
-                preenche_matriz(mundoPtr, tvivosPtr, tmortosPtr); //Marcar cada termo da matriz com celulas mortas
+                preenche_matriz(mundoPtr,tvivosPtr,fvivosPtr,tmortosPtr); //Marcar cada termo da matriz com celulas mortas
                 break;
 
 
@@ -123,12 +124,15 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
             case 4: //Case 4: Mostrar mortos vizinhos em notação '+', NA MATRIZ
                 mostrarmortos = mostrar_mortos_vizinhos(mostrarmortos);
                 break;
-            case 5://case5: Adicionar liata salva
+
+            case 5://case5: Adicionar lista salva
                //salvar
                if(tvivosPtr->cont>0)//caso exista pelomenos 1 celula viva para salvar
                {
                     aumentarlistasalva(listasalvaPtr,tvivosPtr);
-                    save(listasalvaPtr);
+
+                   save(listasalvaPtr);
+
                     mundosalvo();
 
                }else//caso não tenha nem uma celula viva no mundo que vai salvar
@@ -140,8 +144,9 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
 
                 break;
             case 6://case: recuperar listas salvas em ordem
-                preenche_matriz(mundoPtr, tvivosPtr, tmortosPtr); //Marcar cada termo da matriz com celulas mortas
+                preenche_matriz(mundoPtr, tvivosPtr,fvivosPtr,tmortosPtr);//Marcar cada termo da matriz com celulas mortas
                 pegarlistasalva(mundoPtr,listasalvaPtr,tvivosPtr,tmortosPtr,cont_listasalva);
+
 
                 if(cont_listasalva>=listasalvaPtr->cont)//caso  o contador seja igual a o  maximo
                 {
@@ -149,6 +154,7 @@ void menu() { //Inicio do programa, acompanhado do menu inicial e logica do prog
                 }
                 cont_listasalva++;//aumenta o contador
                 break;
+                 
             case 7://case 7:imprimindo as regras
                 regras();//regras
                 break;
