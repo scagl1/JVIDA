@@ -1,6 +1,3 @@
-<div>
-<h1>JVIDA</h1>
-<br>
 
-</div>
-Jogo da Vida
+# __Jogo da Vida__
+---
